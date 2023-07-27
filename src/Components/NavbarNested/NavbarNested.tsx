@@ -3,6 +3,7 @@ import { IconNotes, IconCalendarStats, IconGauge, IconLock } from '@tabler/icons
 import { UserButton } from '../UserButton/UserButton';
 import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
 import { Logo } from './Logo';
+import LightDarkButton from '../LightDarkButton/LightDarkButton';
 
 const mockData = [
   {
@@ -94,7 +95,7 @@ export function NavbarNested() {
       <Navbar.Section className={classes.header}>
         <Group position='apart'>
           <Logo width={rem(120)} />
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
+          <LightDarkButton/>
         </Group>
       </Navbar.Section>
 
