@@ -1,8 +1,6 @@
-import './App.css';
-import { NavbarNested } from '../NavbarNested/NavbarNested';
-import './App.css';
-import { ColorScheme, ColorSchemeProvider, MantineProvider, Paper } from '@mantine/core';
+import { ColorScheme, ColorSchemeProvider, MantineProvider, Flex } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
+import { NavbarNested } from './NavbarNested/NavbarNested';
 
 export default function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -20,9 +18,9 @@ export default function App() {
     <div className='App'>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }}>
-          <Paper>
-            <NavbarNested/>
-          </Paper>
+          <Flex>
+            <NavbarNested />
+          </Flex>
         </MantineProvider>
       </ColorSchemeProvider>
     </div>

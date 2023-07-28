@@ -1,9 +1,9 @@
-import { Navbar, Group, Code, ScrollArea, createStyles, rem } from '@mantine/core';
+import { Navbar, Group, ScrollArea, createStyles, rem } from '@mantine/core';
 import { IconNotes, IconCalendarStats, IconGauge, IconLock } from '@tabler/icons-react';
-import { UserButton } from '../UserButton/UserButton';
-import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
+import { UserButton } from '../UserButton';
+import { LinksGroup } from '../NavbarLinksGroup';
 import { Logo } from './Logo';
-import LightDarkButton from '../LightDarkButton/LightDarkButton';
+import LightDarkButton from '../LightDarkButton';
 
 const mockData = [
   {
@@ -91,7 +91,7 @@ export function NavbarNested() {
   const links = mockData.map((item) => <LinksGroup {...item} key={item.label} />);
 
   return (
-    <Navbar height={800} width={{ sm: 300 }} p='md' className={classes.navbar}>
+    <Navbar  width={{ sm: 300 }} p='md' className={classes.navbar}>
       <Navbar.Section className={classes.header}>
         <Group position='apart'>
           <Logo width={rem(120)} />
