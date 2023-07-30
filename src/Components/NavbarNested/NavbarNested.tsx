@@ -1,5 +1,5 @@
 import { Navbar, Group, ScrollArea, createStyles, rem } from '@mantine/core';
-import { IconNotes, IconCalendarStats, IconGauge, IconLock } from '@tabler/icons-react';
+import { IconBox, IconBriefcase, IconNews, IconLock } from '@tabler/icons-react';
 import { UserButton } from '../UserButton';
 import { LinksGroup } from '../NavbarLinksGroup';
 import { Logo } from './Logo';
@@ -8,7 +8,7 @@ import LightDarkButton from '../LightDarkButton';
 const mockData = [
   {
     label: 'Товары',
-    icon: IconGauge,
+    icon: IconBox,
     initiallyOpened: false,
     links: [
       { label: 'Продажа', link: '/' },
@@ -21,7 +21,7 @@ const mockData = [
   },
   {
     label: 'Финансы',
-    icon: IconNotes,
+    icon: IconBriefcase,
     initiallyOpened: false,
     links: [
       { label: 'Приход', link: '/' },
@@ -31,7 +31,7 @@ const mockData = [
   },
   {
     label: 'Справочники',
-    icon: IconCalendarStats,
+    icon: IconNews,
     initiallyOpened: false,
     links: [
       { label: 'Группы товаров и услуг', link: '/' },
@@ -91,11 +91,11 @@ export function NavbarNested() {
   const links = mockData.map((item) => <LinksGroup {...item} key={item.label} />);
 
   return (
-    <Navbar  width={{ sm: 300 }} p='md' className={classes.navbar}>
+    <Navbar width={{ sm: 300 }} p='md' className={classes.navbar}>
       <Navbar.Section className={classes.header}>
         <Group position='apart'>
           <Logo width={rem(120)} />
-          <LightDarkButton/>
+          <LightDarkButton />
         </Group>
       </Navbar.Section>
 
