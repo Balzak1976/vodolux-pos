@@ -1,10 +1,7 @@
 import { ColorScheme, ColorSchemeProvider, MantineProvider, Flex, Paper } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 import { NavbarNested } from './NavbarNested/NavbarNested';
-// import { DndTable } from './DndTable';
-// import { data } from '../utils/dndTableData';
-import { TableScrollArea } from './TableScrollArea/TableScrollArea';
-import { data } from '../data/tableScrollArea';
+import SaleCreationSection from './SaleCreationSection';
 
 export default function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -25,7 +22,7 @@ export default function App() {
           <Paper>
             <Flex>
               <NavbarNested />
-              <TableScrollArea data={data}/>
+              <SaleCreationSection/>
             </Flex>
           </Paper>
         </MantineProvider>

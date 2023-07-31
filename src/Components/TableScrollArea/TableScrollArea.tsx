@@ -44,7 +44,7 @@ export function TableScrollArea({ data }: TableScrollAreaProps) {
   ));
 
   return (
-    <ScrollArea.Autosize mah='100vh' onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+    <ScrollArea.Autosize mah='70vh' onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
       <Table miw={700} withColumnBorders={true} striped={true} withBorder={true}>
         <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
           <tr>
