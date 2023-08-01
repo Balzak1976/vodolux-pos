@@ -1,9 +1,9 @@
-import { Navbar, Group, ScrollArea, createStyles, rem } from '@mantine/core';
-import { IconBox, IconBriefcase, IconNews, IconLock } from '@tabler/icons-react';
-import { UserButton } from '../UserButton';
-import { LinksGroup } from '../NavbarLinksGroup';
-import { Logo } from './Logo';
+import { Group, Navbar, ScrollArea, createStyles, rem } from '@mantine/core';
+import { IconBox, IconBriefcase, IconLock, IconNews } from '@tabler/icons-react';
 import LightDarkButton from '../LightDarkButton';
+import { LinksGroup } from '../NavbarLinksGroup';
+import { UserButton } from '../UserButton';
+import { LogoVodoluxLg } from '../Logo/LogoVodoluxLg';
 
 const mockData = [
   {
@@ -93,7 +93,7 @@ export function NavbarNested() {
     <Navbar width={{ sm: 300 }} p='md' className={classes.navbar}>
       <Navbar.Section className={classes.header}>
         <Group position='apart'>
-          <Logo width={rem(120)} />
+          <LogoVodoluxLg width={rem(120)} />
           <LightDarkButton />
         </Group>
       </Navbar.Section>
