@@ -1,5 +1,6 @@
 <div align="center"><h1>Vodolux-POS</h1> </div>
 
+Просмотр :point_right:  [Vodolux-pos](https://balzak1976.github.io/vodolux-pos/)
 
 **`!Приложение находится в разработке`**
 <br>
