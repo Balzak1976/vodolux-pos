@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.a06a94f1.css",
-    "main.js": "/static/js/main.9513866c.js",
-    "static/js/787.f2eb27fb.chunk.js": "/static/js/787.f2eb27fb.chunk.js",
-    "index.html": "/index.html",
-    "main.a06a94f1.css.map": "/static/css/main.a06a94f1.css.map",
-    "main.9513866c.js.map": "/static/js/main.9513866c.js.map",
-    "787.f2eb27fb.chunk.js.map": "/static/js/787.f2eb27fb.chunk.js.map"
+    "main.css": "/vodolux-pos/static/css/main.a06a94f1.css",
+    "main.js": "/vodolux-pos/static/js/main.741bbc57.js",
+    "static/js/787.f2eb27fb.chunk.js": "/vodolux-pos/static/js/787.f2eb27fb.chunk.js",
+    "index.html": "/vodolux-pos/index.html",
+    "main.a06a94f1.css.map": "/vodolux-pos/static/css/main.a06a94f1.css.map",
+    "main.741bbc57.js.map": "/vodolux-pos/static/js/main.741bbc57.js.map",
+    "787.f2eb27fb.chunk.js.map": "/vodolux-pos/static/js/787.f2eb27fb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a06a94f1.css",
-    "static/js/main.9513866c.js"
+    "static/js/main.741bbc57.js"
   ]
 }
