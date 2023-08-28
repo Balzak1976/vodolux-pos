@@ -1,6 +1,6 @@
 import goodsData from '../../data/goodsData.json'
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { createStyles, Table, ScrollArea, rem } from '@mantine/core';
 
 import {
@@ -48,7 +48,7 @@ type TableSalesProps = {
 
 const columnHelper = createColumnHelper<TableSalesProps>();
 
-const columns = [
+const GOOD_COLUMNS = [
 	columnHelper.accessor('name', {
 		header: 'Наименование',
 		cell: (info) => info.getValue(),
@@ -74,7 +74,8 @@ const columns = [
 export function TableSales() {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
-	const [data, setData] = useState<TableSalesProps[]>(goodsData);
+	const data = useMemo<TableSalesProps[]>(() => goodsData, []);
+	const columns = useMemo(() => GOOD_COLUMNS, []);
 
 	const table = useReactTable({
 		data,
