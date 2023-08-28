@@ -1,13 +1,12 @@
 import { Flex } from '@mantine/core';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
-import { TableScrollArea } from './TableScrollArea/TableScrollArea';
-import { data } from '../data/tableScrollArea';
+import { TableSales } from './TableSales/TableSales';
 
 export default function SaleCreationSection() {
   return (
     <Flex  direction='column'>
       <CustomerSelectionForm />
-      <TableScrollArea data={data} />
+      <TableSales />
     </Flex>
   );
 }
