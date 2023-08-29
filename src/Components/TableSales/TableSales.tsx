@@ -62,7 +62,6 @@ type TableSalesProps = {
 	name: string;
 	qty: number;
 	price: number;
-	total: number;
 	stocks: number;
 };
 
@@ -85,10 +84,10 @@ const GOOD_COLUMNS = [
 		id: '2',
 		footer: (props) => {
 			const arrTotal = props.table
-				.getRowModel()
-				.rows.map((item) => item.original.total);
+			.getRowModel()
+			.rows.map((row) => (row.original.qty * row.original.price));
 			// итоговая сумма товаров в рублях
-			const totalAmount = arrTotal.reduce((sum, item) => sum + item);
+			const totalAmount = arrTotal ? arrTotal.reduce((sum, item) => sum + item) : null;
 			return `Итог: ${totalAmount} руб.`;
 		},
 		columns: [
@@ -100,9 +99,8 @@ const GOOD_COLUMNS = [
 				header: 'Цена',
 				cell: (info) => info.getValue(),
 			}),
-			columnHelper.accessor('total', {
+			columnHelper.accessor((row) => (row.qty * row.price), {
 				header: 'Сумма',
-				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor('stocks', {
 				header: 'Остаток',
