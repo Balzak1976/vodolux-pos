@@ -1,0 +1,24 @@
+.table-footer {
+  font-size: 1.15rem;
+}
+.table-footer__total-position {
+  text-align: left;
+  padding: 0.4375rem 0.625rem;
+}
+
+.table-footer__total-qty {
+  text-align: center;
+  padding: 0.4375rem 0.625rem;
+}
+
+.table-footer__total-title {
+  text-align: center;
+  padding: 0.4375rem 0.625rem;
+}
+
+.table-footer__total-amount {
+  text-align: left;
+  padding: 0.4375rem 0.625rem;
+}
+ 
+ 
