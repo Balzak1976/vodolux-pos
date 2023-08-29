@@ -84,10 +84,12 @@ const GOOD_COLUMNS = [
 		id: '2',
 		footer: (props) => {
 			const arrTotal = props.table
-			.getRowModel()
-			.rows.map((row) => (row.original.qty * row.original.price));
+				.getRowModel()
+				.rows.map((row) => row.original.qty * row.original.price);
 			// итоговая сумма товаров в рублях
-			const totalAmount = arrTotal ? arrTotal.reduce((sum, item) => sum + item) : null;
+			const totalAmount = arrTotal
+				? arrTotal.reduce((sum, item) => sum + item)
+				: null;
 			return `Итог: ${totalAmount} руб.`;
 		},
 		columns: [
@@ -99,7 +101,7 @@ const GOOD_COLUMNS = [
 				header: 'Цена',
 				cell: (info) => info.getValue(),
 			}),
-			columnHelper.accessor((row) => (row.qty * row.price), {
+			columnHelper.accessor((row) => row.qty * row.price, {
 				header: 'Сумма',
 			}),
 			columnHelper.accessor('stocks', {
@@ -132,20 +134,23 @@ export function TableSales() {
 				striped={true}
 				withBorder={true}>
 				<thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-					{table.getHeaderGroups().map((headerGroup) => (
-						<tr key={headerGroup.id}>
-							{headerGroup.headers.map((header) => (
-								<th key={header.id} colSpan={header.colSpan}>
-									{header.isPlaceholder
-										? null
-										: flexRender(
-												header.column.columnDef.header,
-												header.getContext()
-										  )}
-								</th>
-							))}
-						</tr>
-					))}
+					{table.getHeaderGroups().map((headerGroup) => {
+						// удаляем пустую группу
+						return headerGroup.id !== '0' ? (
+							<tr key={headerGroup.id}>
+								{headerGroup.headers.map((header) => (
+									<th key={header.id} colSpan={header.colSpan}>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.header,
+													header.getContext()
+											  )}
+									</th>
+								))}
+							</tr>
+						) : null;
+					})}
 				</thead>
 				<tbody>
 					{table.getRowModel().rows.map((row) => (
@@ -159,20 +164,23 @@ export function TableSales() {
 					))}
 				</tbody>
 				<tfoot className={cx(classes.footer, { [classes.scrolled]: scrolled })}>
-					{table.getFooterGroups().map((footerGroup) => (
-						<tr key={footerGroup.id}>
-							{footerGroup.headers.map((header) => (
-								<th key={header.id} colSpan={header.colSpan}>
-									{header.isPlaceholder
-										? null
-										: flexRender(
-												header.column.columnDef.footer,
-												header.getContext()
-										  )}
-								</th>
-							))}
-						</tr>
-					))}
+					{table.getFooterGroups().map((footerGroup) => {
+						// удаляем пустую группу
+						return footerGroup.id !== '1' ? (
+							<tr key={footerGroup.id}>
+								{footerGroup.headers.map((header) => (
+									<th key={header.id} colSpan={header.colSpan}>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.footer,
+													header.getContext()
+											  )}
+									</th>
+								))}
+							</tr>
+						) : null;
+					})}
 				</tfoot>
 			</Table>
 		</ScrollArea.Autosize>
