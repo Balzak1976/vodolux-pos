@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/vodolux-pos/static/css/main.a06a94f1.css",
-    "main.js": "/vodolux-pos/static/js/main.741bbc57.js",
+    "main.css": "/vodolux-pos/static/css/main.2f96e3d7.css",
+    "main.js": "/vodolux-pos/static/js/main.198f79ca.js",
     "static/js/787.f2eb27fb.chunk.js": "/vodolux-pos/static/js/787.f2eb27fb.chunk.js",
     "index.html": "/vodolux-pos/index.html",
-    "main.a06a94f1.css.map": "/vodolux-pos/static/css/main.a06a94f1.css.map",
-    "main.741bbc57.js.map": "/vodolux-pos/static/js/main.741bbc57.js.map",
+    "main.2f96e3d7.css.map": "/vodolux-pos/static/css/main.2f96e3d7.css.map",
+    "main.198f79ca.js.map": "/vodolux-pos/static/js/main.198f79ca.js.map",
     "787.f2eb27fb.chunk.js.map": "/vodolux-pos/static/js/787.f2eb27fb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a06a94f1.css",
-    "static/js/main.741bbc57.js"
+    "static/css/main.2f96e3d7.css",
+    "static/js/main.198f79ca.js"
   ]
 }
