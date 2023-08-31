@@ -6,8 +6,11 @@ import { createStyles, Table, ScrollArea, rem } from '@mantine/core';
 
 import {
 	createColumnHelper,
+	ColumnDef,
 	flexRender,
 	getCoreRowModel,
+	getSortedRowModel,
+	SortingState,
 	useReactTable,
 } from '@tanstack/react-table';
 
@@ -76,6 +79,7 @@ const GOOD_COLUMNS = [
 		columns: [
 			columnHelper.accessor('name', {
 				header: 'Наименование',
+				enableSorting: true,
 				cell: (info) => info.getValue(),
 			}),
 		],
@@ -95,17 +99,21 @@ const GOOD_COLUMNS = [
 		columns: [
 			columnHelper.accessor('qty', {
 				header: 'К-во',
+				enableSorting: false,
 				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor('price', {
 				header: 'Цена',
+				enableSorting: false,
 				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor((row) => row.qty * row.price, {
 				header: 'Сумма',
+				enableSorting: false,
 			}),
 			columnHelper.accessor('stocks', {
 				header: 'Остаток',
+				enableSorting: false,
 				cell: (info) => info.getValue(),
 			}),
 		],
@@ -116,12 +124,17 @@ export function TableSales() {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
 	const data = useMemo<TableSalesProps[]>(() => goodsData, []);
-	const columns = useMemo(() => GOOD_COLUMNS, []);
+	const columns = useMemo<ColumnDef<TableSalesProps>[]>(() => GOOD_COLUMNS, []);
+	const [sorting, setSorting] = useState<SortingState>([]);
 
 	const table = useReactTable({
 		data,
 		columns,
+		state: { sorting: sorting },
+		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		// debugTable: true,
 	});
 
 	return (
@@ -140,12 +153,23 @@ export function TableSales() {
 							<tr key={headerGroup.id}>
 								{headerGroup.headers.map((header) => (
 									<th key={header.id} colSpan={header.colSpan}>
-										{header.isPlaceholder
-											? null
-											: flexRender(
+										{header.isPlaceholder ? null : (
+											<div
+												{...{
+													className: header.column.getCanSort()
+														? 'cursor-pointer select-none'
+														: '',
+													onClick: header.column.getToggleSortingHandler(),
+												}}>
+												{flexRender(
 													header.column.columnDef.header,
 													header.getContext()
-											  )}
+												)}
+												{{ asc: ' 🔼', desc: ' 🔽' }[
+													header.column.getIsSorted() as string
+												] ?? null}
+											</div>
+										)}
 									</th>
 								))}
 							</tr>
