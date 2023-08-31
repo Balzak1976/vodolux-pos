@@ -1,18 +1,18 @@
-import './TableSales.css';
 import goodsData from '../../data/goodsData.json';
 
+import { ScrollArea, Table, createStyles, rem } from '@mantine/core';
 import { useMemo, useState } from 'react';
-import { createStyles, Table, ScrollArea, rem } from '@mantine/core';
 
 import {
-	createColumnHelper,
 	ColumnDef,
+	SortingState,
+	createColumnHelper,
 	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
-	SortingState,
 	useReactTable,
 } from '@tanstack/react-table';
+import { SortIcon } from './SortIcon';
 
 const useStyles = createStyles((theme) => ({
 	header: {
@@ -152,9 +152,9 @@ export function TableSales() {
 						return headerGroup.id !== '0' ? (
 							<tr key={headerGroup.id}>
 								{headerGroup.headers.map((header) => (
-									<th key={header.id} colSpan={header.colSpan}>
+									<th key={header.id} colSpan={header.colSpan} >
 										{header.isPlaceholder ? null : (
-											<div
+											<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
 												{...{
 													className: header.column.getCanSort()
 														? 'cursor-pointer select-none'
@@ -165,9 +165,7 @@ export function TableSales() {
 													header.column.columnDef.header,
 													header.getContext()
 												)}
-												{{ asc: ' 🔼', desc: ' 🔽' }[
-													header.column.getIsSorted() as string
-												] ?? null}
+												<SortIcon sortDirection={header.column.getIsSorted() as string} size="0.9rem" stroke={1.5}/>
 											</div>
 										)}
 									</th>
