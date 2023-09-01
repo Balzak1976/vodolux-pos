@@ -1,6 +1,13 @@
 import goodsData from '../../data/goodsData.json';
 
-import { ScrollArea, Table, createStyles, rem } from '@mantine/core';
+import {
+	ScrollArea,
+	Table,
+	createStyles,
+	rem,
+	Flex,
+	Button,
+} from '@mantine/core';
 import { useMemo, useState } from 'react';
 
 import {
@@ -13,6 +20,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { SortIcon } from './SortIcon';
+import { CustomerSelectionForm } from './../CustomerSelectionForm';
 
 const useStyles = createStyles((theme) => ({
 	header: {
@@ -138,73 +146,98 @@ export function TableSales() {
 	});
 
 	return (
-		<ScrollArea.Autosize
-			mah='70vh'
-			onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
-			<Table
-				miw={700}
-				withColumnBorders={true}
-				striped={true}
-				withBorder={true}>
-				<thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-					{table.getHeaderGroups().map((headerGroup) => {
-						// удаляем пустую группу
-						return headerGroup.id !== '0' ? (
-							<tr key={headerGroup.id}>
-								{headerGroup.headers.map((header) => (
-									<th key={header.id} colSpan={header.colSpan} >
-										{header.isPlaceholder ? null : (
-											<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
-												{...{
-													className: header.column.getCanSort()
-														? 'cursor-pointer select-none'
-														: '',
-													onClick: header.column.getToggleSortingHandler(),
-												}}>
-												{flexRender(
-													header.column.columnDef.header,
-													header.getContext()
-												)}
-												<SortIcon sortDirection={header.column.getIsSorted() as string} size="0.9rem" stroke={1.5}/>
-											</div>
-										)}
-									</th>
+		<>
+			<Flex
+				p='md'
+				pb={rem(9)}
+				gap='md'
+				justify='flex-start'
+				align='flex-start'
+				direction='row'>
+				<CustomerSelectionForm />
+				<Button>Button 1</Button>
+			</Flex>
+			<ScrollArea.Autosize
+				mah='80vh'
+				onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+				<Table
+					miw={700}
+					withColumnBorders={true}
+					striped={true}
+					withBorder={true}>
+					<thead
+						className={cx(classes.header, { [classes.scrolled]: scrolled })}>
+						{table.getHeaderGroups().map((headerGroup) => {
+							// удаляем пустую группу
+							return headerGroup.id !== '0' ? (
+								<tr key={headerGroup.id}>
+									{headerGroup.headers.map((header) => (
+										<th key={header.id} colSpan={header.colSpan}>
+											{header.isPlaceholder ? null : (
+												<div
+													style={{
+														display: 'flex',
+														justifyContent: 'space-between',
+														alignItems: 'center',
+													}}
+													{...{
+														className: header.column.getCanSort()
+															? 'cursor-pointer select-none'
+															: '',
+														onClick: header.column.getToggleSortingHandler(),
+													}}>
+													{flexRender(
+														header.column.columnDef.header,
+														header.getContext()
+													)}
+													<SortIcon
+														sortDirection={
+															header.column.getIsSorted() as string
+														}
+														size='0.9rem'
+														stroke={1.5}
+													/>
+												</div>
+											)}
+										</th>
+									))}
+								</tr>
+							) : null;
+						})}
+					</thead>
+					<tbody>
+						{table.getRowModel().rows.map((row) => (
+							<tr key={row.id}>
+								{row.getVisibleCells().map((cell) => (
+									<td key={cell.id}>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
 								))}
 							</tr>
-						) : null;
-					})}
-				</thead>
-				<tbody>
-					{table.getRowModel().rows.map((row) => (
-						<tr key={row.id}>
-							{row.getVisibleCells().map((cell) => (
-								<td key={cell.id}>
-									{flexRender(cell.column.columnDef.cell, cell.getContext())}
-								</td>
-							))}
-						</tr>
-					))}
-				</tbody>
-				<tfoot className={cx(classes.footer, { [classes.scrolled]: scrolled })}>
-					{table.getFooterGroups().map((footerGroup) => {
-						// удаляем пустую группу
-						return footerGroup.id !== '1' ? (
-							<tr key={footerGroup.id}>
-								{footerGroup.headers.map((header) => (
-									<th key={header.id} colSpan={header.colSpan}>
-										{header.isPlaceholder
-											? null
-											: flexRender(
-													header.column.columnDef.footer,
-													header.getContext()
-											  )}
-									</th>
-								))}
-							</tr>
-						) : null;
-					})}
-				</tfoot>
-			</Table>
-		</ScrollArea.Autosize>
+						))}
+					</tbody>
+					<tfoot
+						className={cx(classes.footer, { [classes.scrolled]: scrolled })}>
+						{table.getFooterGroups().map((footerGroup) => {
+							// удаляем пустую группу
+							return footerGroup.id !== '1' ? (
+								<tr key={footerGroup.id}>
+									{footerGroup.headers.map((header) => (
+										<th key={header.id} colSpan={header.colSpan}>
+											{header.isPlaceholder
+												? null
+												: flexRender(
+														header.column.columnDef.footer,
+														header.getContext()
+												  )}
+										</th>
+									))}
+								</tr>
+							) : null;
+						})}
+					</tfoot>
+				</Table>
+			</ScrollArea.Autosize>
+		</>
 	);
 }

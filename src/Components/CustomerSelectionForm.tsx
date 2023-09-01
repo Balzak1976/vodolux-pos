@@ -40,8 +40,7 @@ export function CustomerSelectionForm() {
 
   return (
     <Select
-      p='md'
-      pb={rem(9)}
+      style={{flex: '1'}}
       icon={<IconSearch size='1rem' />}
       styles={{ rightSection: { pointerEvents: 'none' } }}
       maxDropdownHeight={400} // add scroll
