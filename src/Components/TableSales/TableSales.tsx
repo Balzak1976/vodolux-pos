@@ -1,14 +1,12 @@
 import goodsData from '../../data/goodsData.json';
 
 import {
-	ActionIcon,
 	Checkbox,
 	Flex,
-	Menu,
 	ScrollArea,
 	Table,
 	createStyles,
-	rem,
+	rem
 } from '@mantine/core';
 import { useMemo, useState } from 'react';
 
@@ -22,11 +20,11 @@ import {
 } from '@tanstack/react-table';
 import { SortIcon } from './SortIcon';
 
-import { IconSettings } from '@tabler/icons-react';
 import { CustomerSelectionForm } from './../CustomerSelectionForm';
 import { GOOD_COLUMNS, TableSalesProps } from './ColumnDef';
+import { ColumnVisibilityButton } from './ColumnVisibilityButton';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
 	header: {
 		position: 'sticky',
 		top: 0,
@@ -100,31 +98,22 @@ export function TableSales() {
 				align='center'
 				direction='row'>
 				<CustomerSelectionForm />
-
-				<Menu
-					transitionProps={{ transition: 'pop-top-right' }}
-					position='top-end'
-					width={220}
-					withinPortal>
-					<Menu.Target>
-						<ActionIcon color='blue' variant='light' size={30}>
-							<IconSettings size='1.1rem' />
-						</ActionIcon>
-					</Menu.Target>
-					<Menu.Dropdown>
-						{table.getAllLeafColumns().filter((column) => column.getCanHide()).map((column) => {
-								return (
-									<Checkbox
-										p={rem(1)}
-										key={column.id}
-										checked={column.getIsVisible()}
-										onChange={column.getToggleVisibilityHandler()}
-										label={column.id}
-									/>
-								);
-							})}
-					</Menu.Dropdown>
-				</Menu>
+				<ColumnVisibilityButton>
+					{table
+						.getAllLeafColumns()
+						.filter(column => column.getCanHide())
+						.map(column => {
+							return (
+								<Checkbox
+									p={rem(1)}
+									key={column.id}
+									checked={column.getIsVisible()}
+									onChange={column.getToggleVisibilityHandler()}
+									label={column.id}
+								/>
+							);
+						})}
+				</ColumnVisibilityButton>
 			</Flex>
 			<ScrollArea.Autosize
 				mah='80vh'
@@ -136,11 +125,11 @@ export function TableSales() {
 					withBorder={true}>
 					<thead
 						className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-						{table.getHeaderGroups().map((headerGroup) => {
+						{table.getHeaderGroups().map(headerGroup => {
 							// удаляем пустую группу
 							return headerGroup.id !== '0' ? (
 								<tr key={headerGroup.id}>
-									{headerGroup.headers.map((header) => (
+									{headerGroup.headers.map(header => (
 										<th key={header.id} colSpan={header.colSpan}>
 											{header.isPlaceholder ? null : (
 												<div
@@ -175,9 +164,9 @@ export function TableSales() {
 						})}
 					</thead>
 					<tbody>
-						{table.getRowModel().rows.map((row) => (
+						{table.getRowModel().rows.map(row => (
 							<tr key={row.id}>
-								{row.getVisibleCells().map((cell) => (
+								{row.getVisibleCells().map(cell => (
 									<td key={cell.id}>
 										{flexRender(cell.column.columnDef.cell, cell.getContext())}
 									</td>
@@ -187,11 +176,11 @@ export function TableSales() {
 					</tbody>
 					<tfoot
 						className={cx(classes.footer, { [classes.scrolled]: scrolled })}>
-						{table.getFooterGroups().map((footerGroup) => {
+						{table.getFooterGroups().map(footerGroup => {
 							// удаляем пустую группу
 							return footerGroup.id !== '1' ? (
 								<tr key={footerGroup.id}>
-									{footerGroup.headers.map((header) => (
+									{footerGroup.headers.map(header => (
 										<th key={header.id} colSpan={header.colSpan}>
 											{header.isPlaceholder
 												? null
