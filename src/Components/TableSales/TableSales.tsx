@@ -1,26 +1,30 @@
 import goodsData from '../../data/goodsData.json';
 
 import {
+	ActionIcon,
+	Checkbox,
+	Flex,
+	Menu,
 	ScrollArea,
 	Table,
 	createStyles,
 	rem,
-	Flex,
-	Button,
 } from '@mantine/core';
 import { useMemo, useState } from 'react';
 
 import {
 	ColumnDef,
 	SortingState,
-	createColumnHelper,
 	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
 import { SortIcon } from './SortIcon';
+
+import { IconSettings } from '@tabler/icons-react';
 import { CustomerSelectionForm } from './../CustomerSelectionForm';
+import { GOOD_COLUMNS, TableSalesProps } from './ColumnDef';
 
 const useStyles = createStyles((theme) => ({
 	header: {
@@ -69,65 +73,6 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-type TableSalesProps = {
-	name: string;
-	qty: number;
-	price: number;
-	stocks: number;
-};
-
-const columnHelper = createColumnHelper<TableSalesProps>();
-
-const GOOD_COLUMNS = [
-	columnHelper.group({
-		id: '1',
-		footer: (props) =>
-			`Всего позиций: ${props.table.getRowModel().rows.length}`,
-
-		columns: [
-			columnHelper.accessor('name', {
-				header: 'Наименование',
-				enableSorting: true,
-				cell: (info) => info.getValue(),
-			}),
-		],
-	}),
-	columnHelper.group({
-		id: '2',
-		footer: (props) => {
-			const arrTotal = props.table
-				.getRowModel()
-				.rows.map((row) => row.original.qty * row.original.price);
-			// итоговая сумма товаров в рублях
-			const totalAmount = arrTotal
-				? arrTotal.reduce((sum, item) => sum + item)
-				: null;
-			return `Итог: ${totalAmount} руб.`;
-		},
-		columns: [
-			columnHelper.accessor('qty', {
-				header: 'К-во',
-				enableSorting: false,
-				cell: (info) => info.getValue(),
-			}),
-			columnHelper.accessor('price', {
-				header: 'Цена',
-				enableSorting: false,
-				cell: (info) => info.getValue(),
-			}),
-			columnHelper.accessor((row) => row.qty * row.price, {
-				header: 'Сумма',
-				enableSorting: false,
-			}),
-			columnHelper.accessor('stocks', {
-				header: 'Остаток',
-				enableSorting: false,
-				cell: (info) => info.getValue(),
-			}),
-		],
-	}),
-];
-
 export function TableSales() {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
@@ -152,10 +97,34 @@ export function TableSales() {
 				pb={rem(9)}
 				gap='md'
 				justify='flex-start'
-				align='flex-start'
+				align='center'
 				direction='row'>
 				<CustomerSelectionForm />
-				<Button>Button 1</Button>
+
+				<Menu
+					transitionProps={{ transition: 'pop-top-right' }}
+					position='top-end'
+					width={220}
+					withinPortal>
+					<Menu.Target>
+						<ActionIcon color='blue' variant='light' size={30}>
+							<IconSettings size='1.1rem' />
+						</ActionIcon>
+					</Menu.Target>
+					<Menu.Dropdown>
+						{table.getAllLeafColumns().filter((column) => column.getCanHide()).map((column) => {
+								return (
+									<Checkbox
+										p={rem(1)}
+										key={column.id}
+										checked={column.getIsVisible()}
+										onChange={column.getToggleVisibilityHandler()}
+										label={column.id}
+									/>
+								);
+							})}
+					</Menu.Dropdown>
+				</Menu>
 			</Flex>
 			<ScrollArea.Autosize
 				mah='80vh'
