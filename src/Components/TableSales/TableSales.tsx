@@ -97,7 +97,6 @@ export function TableSales() {
 				justify='flex-start'
 				align='center'
 				direction='row'>
-				<CustomerSelectionForm />
 				<ColumnVisibilityButton>
 					{table
 						.getAllLeafColumns()
@@ -105,7 +104,8 @@ export function TableSales() {
 						.map(column => {
 							return (
 								<Checkbox
-									p={rem(1)}
+									px={'0.75rem'}
+									py={'0.625rem'}
 									key={column.id}
 									checked={column.getIsVisible()}
 									onChange={column.getToggleVisibilityHandler()}
@@ -114,6 +114,7 @@ export function TableSales() {
 							);
 						})}
 				</ColumnVisibilityButton>
+				<CustomerSelectionForm />
 			</Flex>
 			<ScrollArea.Autosize
 				mah='80vh'
