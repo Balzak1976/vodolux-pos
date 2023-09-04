@@ -13,6 +13,7 @@ import { useMemo, useState } from 'react';
 import {
 	ColumnDef,
 	SortingState,
+	VisibilityState,
 	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
@@ -77,12 +78,14 @@ export function TableSales() {
 	const data = useMemo<TableSalesProps[]>(() => goodsData, []);
 	const columns = useMemo<ColumnDef<TableSalesProps>[]>(() => GOOD_COLUMNS, []);
 	const [sorting, setSorting] = useState<SortingState>([]);
+	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 
 	const table = useReactTable({
 		data,
 		columns,
-		state: { sorting: sorting },
+		state: { sorting, columnVisibility },
 		onSortingChange: setSorting,
+		onColumnVisibilityChange: setColumnVisibility,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		// debugTable: true,
