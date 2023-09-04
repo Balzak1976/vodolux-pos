@@ -29,9 +29,9 @@ export const GOOD_COLUMNS = [
 				.getRowModel()
 				.rows.map((row) => row.original.qty * row.original.price);
 			// итоговая сумма товаров в рублях
-			const totalAmount = arrTotal
+			const totalAmount = arrTotal.length !== 0
 				? arrTotal.reduce((sum, item) => sum + item)
-				: null;
+				: 0;
 			return `Итог: ${totalAmount} руб.`;
 		},
 		columns: [
