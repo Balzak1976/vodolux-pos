@@ -12,7 +12,6 @@ export function ColumnVisibilityButton({children}: ColumnVisibilityButtonProps )
 		<Menu
 			transitionProps={{ transition: 'pop-top-right' }}
 			position='bottom-start'
-			width={100}
       withinPortal>
 			<Menu.Target>
 				<ActionIcon color={theme.colors.blue[6]} variant='light' size={30}>
