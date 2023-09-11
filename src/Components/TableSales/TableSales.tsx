@@ -139,7 +139,7 @@ export function TableSales<TData, TValue>({
 									key={column.id}
 									checked={column.getIsVisible()}
 									onChange={column.getToggleVisibilityHandler()}
-									label={column.id}
+									label={column.columnDef.header as string}
 								/>
 							);
 						})}
