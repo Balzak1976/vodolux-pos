@@ -1,5 +1,6 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { TableCell } from './TableCell';
 
 export type Columns = {
 	name: string;
@@ -40,7 +41,7 @@ export const goodColumns = [
 				header: 'К-во',
 				enableSorting: false,
 				enableHiding: true,
-				cell: info => info.getValue(),
+				cell: TableCell,
 			}),
 			columnHelper.accessor('price', {
 				id: 'Цена',

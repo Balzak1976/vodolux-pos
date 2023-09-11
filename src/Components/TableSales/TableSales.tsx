@@ -16,11 +16,19 @@ import {
 	getCoreRowModel,
 	getSortedRowModel,
 	useReactTable,
+	RowData,
 } from '@tanstack/react-table';
 import { SortIcon } from './SortIcon';
 
 import { CustomerSelectionForm } from './../CustomerSelectionForm';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
+
+declare module '@tanstack/react-table' {
+  interface TableMeta<TData extends RowData> {
+    updateData: (rowIndex: number, columnId: string, value: unknown) => void
+  }
+}
+
 
 const useStyles = createStyles(theme => ({
 	header: {
@@ -97,7 +105,7 @@ export function TableSales<TData, TValue>({
 		getSortedRowModel: getSortedRowModel(),
 		// добавляем кастомную ф-ю updateData в table.option.meta
 		meta: {
-			updateData: (rowIndex: number, columnId: string, value: string) =>
+			updateData: (rowIndex , columnId, value) =>
 				setData(old =>
 					old.map((row, index) => {
 						if (index === rowIndex) {
