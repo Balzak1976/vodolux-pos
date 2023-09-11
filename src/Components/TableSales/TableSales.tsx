@@ -24,11 +24,10 @@ import { CustomerSelectionForm } from './../CustomerSelectionForm';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
 
 declare module '@tanstack/react-table' {
-  interface TableMeta<TData extends RowData> {
-    updateData: (rowIndex: number, columnId: string, value: unknown) => void
-  }
+	interface TableMeta<TData extends RowData> {
+		updateData: (rowIndex: number, columnId: string, value: unknown) => void;
+	}
 }
-
 
 const useStyles = createStyles(theme => ({
 	header: {
@@ -105,7 +104,7 @@ export function TableSales<TData, TValue>({
 		getSortedRowModel: getSortedRowModel(),
 		// добавляем кастомную ф-ю updateData в table.option.meta
 		meta: {
-			updateData: (rowIndex , columnId, value) =>
+			updateData: (rowIndex, columnId, value) =>
 				setData(old =>
 					old.map((row, index) => {
 						if (index === rowIndex) {
@@ -157,43 +156,38 @@ export function TableSales<TData, TValue>({
 					withBorder={true}>
 					<thead
 						className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-						{table.getHeaderGroups().map(headerGroup => {
-							// удаляем пустую группу
-							return headerGroup.id !== '0' ? (
-								<tr key={headerGroup.id}>
-									{headerGroup.headers.map(header => (
-										<th key={header.id} colSpan={header.colSpan}>
-											{header.isPlaceholder ? null : (
-												<div
-													style={{
-														display: 'flex',
-														justifyContent: 'space-between',
-														alignItems: 'center',
-													}}
-													{...{
-														className: header.column.getCanSort()
-															? 'cursor-pointer select-none'
-															: '',
-														onClick: header.column.getToggleSortingHandler(),
-													}}>
-													{flexRender(
-														header.column.columnDef.header,
-														header.getContext()
-													)}
-													<SortIcon
-														sortDirection={
-															header.column.getIsSorted() as string
-														}
-														size='0.9rem'
-														stroke={1.5}
-													/>
-												</div>
-											)}
-										</th>
-									))}
-								</tr>
-							) : null;
-						})}
+						{table.getHeaderGroups().map(headerGroup => (
+							<tr key={headerGroup.id}>
+								{headerGroup.headers.map(header => (
+									<th key={header.id} colSpan={header.colSpan}>
+										{header.isPlaceholder ? null : (
+											<div
+												style={{
+													display: 'flex',
+													justifyContent: 'space-between',
+													alignItems: 'center',
+												}}
+												{...{
+													className: header.column.getCanSort()
+														? 'cursor-pointer select-none'
+														: '',
+													onClick: header.column.getToggleSortingHandler(),
+												}}>
+												{flexRender(
+													header.column.columnDef.header,
+													header.getContext()
+												)}
+												<SortIcon
+													sortDirection={header.column.getIsSorted() as string}
+													size='0.9rem'
+													stroke={1.5}
+												/>
+											</div>
+										)}
+									</th>
+								))}
+							</tr>
+						))}
 					</thead>
 					<tbody>
 						{table.getRowModel().rows.map(row => (
@@ -206,26 +200,6 @@ export function TableSales<TData, TValue>({
 							</tr>
 						))}
 					</tbody>
-					<tfoot
-						className={cx(classes.footer, { [classes.scrolled]: scrolled })}>
-						{table.getFooterGroups().map(footerGroup => {
-							// удаляем пустую группу
-							return footerGroup.id !== '1' ? (
-								<tr key={footerGroup.id}>
-									{footerGroup.headers.map(header => (
-										<th key={header.id} colSpan={header.colSpan}>
-											{header.isPlaceholder
-												? null
-												: flexRender(
-														header.column.columnDef.footer,
-														header.getContext()
-												  )}
-										</th>
-									))}
-								</tr>
-							) : null;
-						})}
-					</tfoot>
 				</Table>
 			</ScrollArea.Autosize>
 		</>

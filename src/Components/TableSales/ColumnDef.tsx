@@ -1,4 +1,4 @@
-import { createColumnHelper } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { TableCell } from './TableCell';
 
@@ -9,60 +9,27 @@ export type Columns = {
 	stocks: number;
 };
 
-const columnHelper = createColumnHelper<Columns>();
-
-export const goodColumns = [
-	columnHelper.group({
-		id: '1',
-		footer: props => `Всего позиций: ${props.table.getRowModel().rows.length}`,
-		columns: [
-			columnHelper.accessor('name', {
-				header: 'Наименование',
-				enableSorting: true,
-				enableHiding: false,
-				cell: info => info.getValue(),
-			}),
-		],
-	}),
-	columnHelper.group({
-		id: '2',
-		footer: props => {
-			const arrTotal = props.table
-				.getRowModel()
-				.rows.map(row => row.original.qty * row.original.price);
-			// итоговая сумма товаров в рублях
-			const totalAmount =
-				arrTotal.length !== 0 ? arrTotal.reduce((sum, item) => sum + item) : 0;
-			return `Итог: ${formatCurrency(totalAmount)}`;
-		},
-		columns: [
-			columnHelper.accessor('qty', {
-				id: 'К-во',
-				header: 'К-во',
-				enableSorting: false,
-				enableHiding: true,
-				cell: TableCell,
-			}),
-			columnHelper.accessor('price', {
-				id: 'Цена',
-				header: 'Цена',
-				enableSorting: false,
-				enableHiding: true,
-				cell: info => formatCurrency(info.getValue()),
-			}),
-			columnHelper.accessor(row => formatCurrency(row.qty * row.price), {
-				id: 'Сумма',
-				header: 'Сумма',
-				enableSorting: false,
-				enableHiding: true,
-			}),
-			columnHelper.accessor('stocks', {
-				id: 'Остаток',
-				header: 'Остаток',
-				enableSorting: false,
-				enableHiding: true,
-				cell: info => info.getValue(),
-			}),
-		],
-	}),
+export const goodColumns: ColumnDef<Columns>[] = [
+	{
+		accessorKey: 'name',
+		header: 'Название',
+	},
+	{
+		accessorKey: 'qty',
+		header: 'Кол-во',
+		cell: TableCell,
+	},
+	{
+		accessorKey: 'price',
+		header: 'Цена',
+		cell: TableCell,
+	},
+	{
+		accessorFn: row => row.qty * row.price,
+		header: 'Итог',
+	},
+	{
+		accessorKey: 'stocks',
+		header: 'Склад',
+	},
 ];
