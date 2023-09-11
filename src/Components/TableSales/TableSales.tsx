@@ -1,12 +1,10 @@
-import goodsData from '../../data/goodsData.json';
-
 import {
 	Checkbox,
 	Flex,
 	ScrollArea,
 	Table,
 	createStyles,
-	rem
+	rem,
 } from '@mantine/core';
 import { useMemo, useState } from 'react';
 
@@ -22,7 +20,6 @@ import {
 import { SortIcon } from './SortIcon';
 
 import { CustomerSelectionForm } from './../CustomerSelectionForm';
-import { GOOD_COLUMNS, TableSalesProps } from './ColumnDef';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
 
 const useStyles = createStyles(theme => ({
@@ -72,13 +69,23 @@ const useStyles = createStyles(theme => ({
 	},
 }));
 
-export function TableSales() {
+interface TableSalesProps<TData, TValue> {
+	goodData: TData[];
+	goodColumns: ColumnDef<TData, TValue>[];
+}
+
+export function TableSales<TData, TValue>({
+	goodData,
+	goodColumns,
+}: TableSalesProps<TData, TValue>) {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
-	const data = useMemo<TableSalesProps[]>(() => goodsData, []);
-	const columns = useMemo<ColumnDef<TableSalesProps>[]>(() => GOOD_COLUMNS, []);
+
+	const columns = useMemo(() => goodColumns, []);
+	const initialData = useMemo(() => goodData, []);
+	const [data, setData] = useState(() => [...initialData]);
 	const [sorting, setSorting] = useState<SortingState>([]);
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
 	const table = useReactTable({
 		data,
@@ -88,6 +95,19 @@ export function TableSales() {
 		onColumnVisibilityChange: setColumnVisibility,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
+		// добавляем кастомную ф-ю updateData в table.option.meta
+		meta: {
+			updateData: (rowIndex: number, columnId: string, value: string) =>
+				setData(old =>
+					old.map((row, index) => {
+						if (index === rowIndex) {
+							return { ...old[rowIndex], [columnId]: value };
+						}
+
+						return row;
+					})
+				),
+		},
 		// debugTable: true,
 	});
 

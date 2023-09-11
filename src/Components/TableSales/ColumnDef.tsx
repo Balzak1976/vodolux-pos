@@ -1,16 +1,16 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { formatCurrency } from '../../utils/formatCurrency';
 
-export type TableSalesProps = {
+export type Columns = {
 	name: string;
 	qty: number;
 	price: number;
 	stocks: number;
 };
 
-const columnHelper = createColumnHelper<TableSalesProps>();
+const columnHelper = createColumnHelper<Columns>();
 
-export const GOOD_COLUMNS = [
+export const goodColumns = [
 	columnHelper.group({
 		id: '1',
 		footer: props => `Всего позиций: ${props.table.getRowModel().rows.length}`,
