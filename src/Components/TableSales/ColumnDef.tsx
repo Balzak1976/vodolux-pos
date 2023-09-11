@@ -28,7 +28,7 @@ export const goodColumns: ColumnDef<GoodColumns>[] = [
 		enableSorting: false
 	},
 	{
-		accessorFn: row => row.qty * row.price,
+		accessorFn: row => formatCurrency(row.qty * row.price),
 		header: 'Итог',
 		enableSorting: false
 	},
