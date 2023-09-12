@@ -18,7 +18,7 @@ import {
 	useReactTable,
 	RowData,
 } from '@tanstack/react-table';
-import { SortIcon } from './SortIcon';
+
 
 import { CustomerSelectionForm } from './../CustomerSelectionForm';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
@@ -160,30 +160,12 @@ export function TableSales<TData, TValue>({
 							<tr key={headerGroup.id}>
 								{headerGroup.headers.map(header => (
 									<th key={header.id} colSpan={header.colSpan}>
-										{header.isPlaceholder ? null : (
-											<div
-												style={{
-													display: 'flex',
-													justifyContent: 'space-between',
-													alignItems: 'center',
-												}}
-												{...{
-													className: header.column.getCanSort()
-														? 'cursor-pointer select-none'
-														: '',
-													onClick: header.column.getToggleSortingHandler(),
-												}}>
-												{flexRender(
+										{header.isPlaceholder
+											? null
+											: flexRender(
 													header.column.columnDef.header,
 													header.getContext()
-												)}
-												<SortIcon
-													sortDirection={header.column.getIsSorted() as string}
-													size='0.9rem'
-													stroke={1.5}
-												/>
-											</div>
-										)}
+											  )}
 									</th>
 								))}
 							</tr>
