@@ -119,7 +119,7 @@ export function TableSales<TData, TValue>({
 	});
 
 	return (
-		<>
+		<div>
 			<Flex
 				p='md'
 				pb={rem(9)}
@@ -184,6 +184,6 @@ export function TableSales<TData, TValue>({
 					</tbody>
 				</Table>
 			</ScrollArea.Autosize>
-		</>
+		</div>
 	);
 }

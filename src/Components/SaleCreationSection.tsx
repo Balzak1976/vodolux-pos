@@ -1,15 +1,20 @@
-import { Flex } from '@mantine/core';
-import goodsData from '../data/goodsData.json';
+import React, { useState } from 'react';
+import { Flex, SimpleGrid } from '@mantine/core';
+import goodData from '../data/goodsData.json';
 import { goodColumns } from './TableSales/ColumnDef';
 import { TableSales } from './TableSales/TableSales';
 import { ButtonGroup } from './TableSales/ButtonGroup';
+import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
 
 export default function SaleCreationSection() {
-  
-  return (
-    <Flex  direction='column'>
-      <TableSales goodData={goodsData} goodColumns={goodColumns} />
-      <ButtonGroup></ButtonGroup>
-    </Flex>
-  );
+	const [data, setData] = useState([]);
+	return (
+		<SimpleGrid cols={2} spacing={0}>
+			<Flex direction='column' justify='space-between'>
+				<TableSales goodData={data} goodColumns={goodColumns} />
+				<ButtonGroup />
+			</Flex>
+			<ProductSelectionSection/>
+		</SimpleGrid>
+	);
 }
