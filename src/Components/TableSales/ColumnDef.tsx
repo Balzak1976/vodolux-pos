@@ -34,6 +34,11 @@ export const goodColumns: ColumnDef<GoodColumns>[] = [
 		enableSorting: false
 	},
 	{
+		header: 'Скидка',
+		cell: TableCell,
+		enableSorting: false
+	},
+	{
 		accessorKey: 'stocks',
 		header: 'Склад',
 		enableSorting: false
