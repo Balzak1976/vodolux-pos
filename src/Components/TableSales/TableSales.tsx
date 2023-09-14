@@ -146,7 +146,7 @@ export function TableSales<TData, TValue>({
 				</ColumnVisibilityButton>
 				<CustomerSelectionForm />
 			</Flex>
-			<ScrollArea.Autosize
+			<ScrollArea
 				mah='60vh'
 				onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
 				<Table
@@ -183,7 +183,7 @@ export function TableSales<TData, TValue>({
 						))}
 					</tbody>
 				</Table>
-			</ScrollArea.Autosize>
+			</ScrollArea>
 		</div>
 	);
 }
