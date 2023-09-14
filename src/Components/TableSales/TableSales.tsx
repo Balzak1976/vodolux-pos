@@ -147,7 +147,7 @@ export function TableSales<TData, TValue>({
 				<CustomerSelectionForm />
 			</Flex>
 			<ScrollArea.Autosize
-				mah='80vh'
+				mah='60vh'
 				onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
 				<Table
 					miw={700}
