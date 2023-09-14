@@ -1,16 +1,16 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { formatCurrency } from '../../utils/formatCurrency';
-import { TableCell } from './TableCell';
 import { SortButton } from './SortButton';
+import { TableCell } from './TableCell';
 
-type GoodColumns = {
+type ProductColumns = {
 	name: string;
 	qty: number;
 	price: number;
 	stocks: number;
 };
 
-export const goodColumns: ColumnDef<GoodColumns>[] = [
+export const productColumns: ColumnDef<ProductColumns>[] = [
 	{
 		accessorKey: 'name',
 		header: ({column}) => <SortButton column={column}>{'Наименование'}</SortButton>,

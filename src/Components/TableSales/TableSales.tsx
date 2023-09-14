@@ -10,13 +10,13 @@ import { useMemo, useState } from 'react';
 
 import {
 	ColumnDef,
+	RowData,
 	SortingState,
 	VisibilityState,
 	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
 	useReactTable,
-	RowData,
 } from '@tanstack/react-table';
 
 
@@ -77,19 +77,19 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface TableSalesProps<TData, TValue> {
-	goodData: TData[];
-	goodColumns: ColumnDef<TData, TValue>[];
+	productData: TData[];
+	productColumns: ColumnDef<TData, TValue>[];
 }
 
 export function TableSales<TData, TValue>({
-	goodData,
-	goodColumns,
+	productData,
+	productColumns,
 }: TableSalesProps<TData, TValue>) {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
 
-	const columns = useMemo(() => goodColumns, []);
-	const initialData = useMemo(() => goodData, []);
+	const columns = useMemo(() => productColumns, []);
+	const initialData = useMemo(() => productData, []);
 	const [data, setData] = useState(() => [...initialData]);
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
