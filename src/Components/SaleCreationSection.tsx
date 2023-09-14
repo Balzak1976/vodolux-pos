@@ -8,13 +8,19 @@ import { TableSales } from './TableSales/TableSales';
 
 export default function SaleCreationSection() {
 	const [data, setData] = useState(productData);
+	// console.log(data)
+
+	const resetTableSales = () => {
+		setData([]);
+	};
+
 	return (
 		<SimpleGrid cols={2} spacing={0}>
 			<Flex direction='column' justify='space-between'>
 				<TableSales productData={data} productColumns={productColumns} />
-				<ButtonGroup />
+				<ButtonGroup onResetTableSales={resetTableSales} />
 			</Flex>
-			<ProductSelectionSection/>
+			<ProductSelectionSection />
 		</SimpleGrid>
 	);
 }

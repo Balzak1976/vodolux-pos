@@ -6,7 +6,7 @@ import {
 	createStyles,
 	rem,
 } from '@mantine/core';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
 	ColumnDef,
@@ -18,7 +18,6 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
-
 
 import { CustomerSelectionForm } from './../CustomerSelectionForm';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
@@ -90,9 +89,15 @@ export function TableSales<TData, TValue>({
 
 	const columns = useMemo(() => productColumns, []);
 	const initialData = useMemo(() => productData, []);
+
 	const [data, setData] = useState(() => [...initialData]);
+	console.dir(data[0]);
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
+	useEffect(() => {
+		setData(() => [...productData]);
+	}, [productData]);
 
 	const table = useReactTable({
 		data,
@@ -119,7 +124,7 @@ export function TableSales<TData, TValue>({
 	});
 
 	return (
-		<div>
+		<>
 			<Flex
 				p='md'
 				pb={rem(9)}
@@ -147,7 +152,7 @@ export function TableSales<TData, TValue>({
 				<CustomerSelectionForm />
 			</Flex>
 			<ScrollArea
-				mah='60vh'
+				style={{flex: '1  60vh'}}
 				onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
 				<Table
 					miw={700}
@@ -184,6 +189,6 @@ export function TableSales<TData, TValue>({
 					</tbody>
 				</Table>
 			</ScrollArea>
-		</div>
+		</>
 	);
 }
