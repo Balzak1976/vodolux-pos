@@ -1,12 +1,13 @@
 import {
 	Checkbox,
 	Flex,
+	LoadingOverlay,
 	ScrollArea,
 	Table,
 	createStyles,
 	rem,
 } from '@mantine/core';
-import { useEffect, useMemo, useState, ReactNode } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import {
 	ColumnDef,
@@ -19,7 +20,6 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 
-import { CustomerSelectionForm } from '../CustomerSelectionForm';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
 
 declare module '@tanstack/react-table' {
@@ -78,13 +78,15 @@ const useStyles = createStyles(theme => ({
 interface TableSalesProps<TData, TValue> {
 	productData: TData[];
 	productColumns: ColumnDef<TData, TValue>[];
+	isHandling: boolean;
 	children: ReactNode;
 }
 
 export function SalesTable<TData, TValue>({
 	productData,
 	productColumns,
-	children
+	isHandling,
+	children,
 }: TableSalesProps<TData, TValue>) {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
@@ -93,7 +95,6 @@ export function SalesTable<TData, TValue>({
 	const initialData = useMemo(() => productData, []);
 
 	const [data, setData] = useState(() => [...initialData]);
-	console.dir(data[0]);
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
@@ -154,8 +155,10 @@ export function SalesTable<TData, TValue>({
 				{children}
 			</Flex>
 			<ScrollArea
-				style={{flex: '1  60vh'}}
+				style={{ flex: '1  60vh' }}
 				onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+				<LoadingOverlay visible={isHandling} overlayBlur={2} />
+
 				<Table
 					miw={700}
 					withColumnBorders={true}
