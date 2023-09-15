@@ -1,4 +1,4 @@
-import { Flex } from '@mantine/core';
+import { Button, Grid } from '@mantine/core';
 import { DiscountButton } from './DiscountButton';
 import { PrintReceiptButton } from './PrintReceiptButton';
 import { ReceiptSaveCancelButton } from './ReceiptSaveCancelButton';
@@ -9,10 +9,19 @@ interface ButtonGroupProps {
 
 export function ButtonGroup({ onResetTableSales }: ButtonGroupProps) {
 	return (
-		<Flex p='md' gap='xs' justify='flex-start' align='center' direction='row'>
-			<ReceiptSaveCancelButton onResetTableSales={onResetTableSales}/>
-			<PrintReceiptButton />
-			<DiscountButton />
-		</Flex>
+		<Grid p='xs' gutter='xs'>
+			<Grid.Col span={4}>
+				<ReceiptSaveCancelButton onResetTableSales={onResetTableSales} />
+			</Grid.Col>
+			<Grid.Col span={4}>
+				<PrintReceiptButton />
+			</Grid.Col>
+			<Grid.Col span={4}>
+				<DiscountButton />
+			</Grid.Col>
+			<Grid.Col span={12}>
+				<Button fullWidth>Продать</Button>
+			</Grid.Col>
+		</Grid>
 	);
 }
