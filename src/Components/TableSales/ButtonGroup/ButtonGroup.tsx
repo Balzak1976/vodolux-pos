@@ -1,22 +1,18 @@
-import { Button, Flex } from '@mantine/core';
-import { PrintReceiptButton } from './PrintReceiptButton';
+import { Flex } from '@mantine/core';
 import { DiscountButton } from './DiscountButton';
+import { PrintReceiptButton } from './PrintReceiptButton';
+import { ReceiptSaveCancelButton } from './ReceiptSaveCancelButton';
 
 interface ButtonGroupProps {
-  onResetTableSales: () => void;
+	onResetTableSales: () => void;
 }
 
 export function ButtonGroup({ onResetTableSales }: ButtonGroupProps) {
 	return (
 		<Flex p='md' gap='xs' justify='flex-start' align='center' direction='row'>
-      <Button
-        onClick={onResetTableSales}
-        fullWidth
-        variant='filled'>
-				Очистить
-      </Button>
-      <PrintReceiptButton />
-      <DiscountButton/>
+			<ReceiptSaveCancelButton onResetTableSales={onResetTableSales}/>
+			<PrintReceiptButton />
+			<DiscountButton />
 		</Flex>
 	);
 }
