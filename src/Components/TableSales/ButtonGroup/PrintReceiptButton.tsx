@@ -8,7 +8,7 @@ export function PrintReceiptButton() {
 	return (
 		<Menu shadow='md' position='top'>
 			<Menu.Target>
-				<Button fullWidth>Печать</Button>
+				<Button variant='outline' compact fullWidth>Печать</Button>
 			</Menu.Target>
 
 			<Menu.Dropdown>

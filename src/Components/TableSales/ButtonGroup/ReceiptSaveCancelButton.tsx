@@ -11,7 +11,7 @@ export function ReceiptSaveCancelButton({
 	return (
 		<Menu shadow='md' position='top-start'>
 			<Menu.Target>
-				<Button fullWidth>Отложить/Отменить</Button>
+				<Button variant='outline' compact fullWidth>Отложить/Отменить</Button>
 			</Menu.Target>
 
 			<Menu.Dropdown>

@@ -10,7 +10,7 @@ export function DiscountButton() {
 	return (
 		<Menu shadow='md' position='top-end' closeOnItemClick={false}>
 			<Menu.Target>
-				<Button fullWidth>Скидка</Button>
+				<Button variant='outline' compact fullWidth>Скидка</Button>
 			</Menu.Target>
 
 			<Menu.Dropdown>
