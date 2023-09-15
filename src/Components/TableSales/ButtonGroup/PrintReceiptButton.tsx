@@ -1,14 +1,12 @@
 import { Button, Menu } from '@mantine/core';
 import {
-	IconReceipt,
-	IconTags,
 	IconPrinter,
-	IconDiscount,
+	IconReceipt
 } from '@tabler/icons-react';
 
 export function PrintReceiptButton() {
 	return (
-		<Menu shadow='md' position='top-start'>
+		<Menu shadow='md' position='top'>
 			<Menu.Target>
 				<Button fullWidth>Печать</Button>
 			</Menu.Target>
