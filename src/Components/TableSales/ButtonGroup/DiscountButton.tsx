@@ -3,9 +3,9 @@ import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
 
 export function DiscountButton() {
-	const [activeIcon, setActiveIcon] = useState(true)
+	const [active, setActive] = useState(true);
 
-	const Icon = activeIcon ? IconCurrencyRubel : IconPercentage;
+	const Icon = active ? IconCurrencyRubel : IconPercentage;
 
 	return (
 		<Menu shadow='md' position='top-end' closeOnItemClick={false}>
@@ -17,13 +17,17 @@ export function DiscountButton() {
 				<Menu.Label>Размер скидки</Menu.Label>
 				<Flex px={'0.75rem'} py={'0.625rem'} gap='xs'>
 					<ActionIcon
-						onClick={() => setActiveIcon(true)}
-						w='50%' variant='light' color='blue'>
+						onClick={() => setActive(true)}
+						w='50%'
+						variant={active ? 'filled' : 'light'}
+						color='blue'>
 						<IconCurrencyRubel size='1.125rem' />
 					</ActionIcon>
 					<ActionIcon
-						onClick={() => setActiveIcon(false)}
-						w='50%' variant='light' color='blue'>
+						onClick={() => setActive(false)}
+						w='50%'
+						variant={active ? 'light' : 'filled'}
+						color='blue'>
 						<IconPercentage size='1.125rem' />
 					</ActionIcon>
 				</Flex>
