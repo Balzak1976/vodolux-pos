@@ -4,7 +4,8 @@ import productData from '../data/productData.json';
 import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
 import { ButtonGroup } from './TableSales/ButtonGroup/ButtonGroup';
 import { productColumns } from './TableSales/ColumnDef';
-import { TableSales } from './TableSales/TableSales';
+import { SalesTable } from './TableSales/SalesTable';
+import { CustomerSelectionForm } from './CustomerSelectionForm';
 
 export default function SaleCreationSection() {
 	const [data, setData] = useState(productData);
@@ -17,7 +18,9 @@ export default function SaleCreationSection() {
 	return (
 		<SimpleGrid cols={2} spacing={0}>
 			<Flex direction='column' justify='space-between'>
-				<TableSales productData={data} productColumns={productColumns} />
+				<SalesTable productData={data} productColumns={productColumns}>
+					<CustomerSelectionForm />
+				</SalesTable>
 				<ButtonGroup onResetTableSales={resetTableSales} />
 			</Flex>
 			<ProductSelectionSection />

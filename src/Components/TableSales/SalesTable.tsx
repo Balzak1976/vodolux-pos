@@ -6,7 +6,7 @@ import {
 	createStyles,
 	rem,
 } from '@mantine/core';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, ReactNode } from 'react';
 
 import {
 	ColumnDef,
@@ -19,7 +19,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 
-import { CustomerSelectionForm } from './../CustomerSelectionForm';
+import { CustomerSelectionForm } from '../CustomerSelectionForm';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
 
 declare module '@tanstack/react-table' {
@@ -78,11 +78,13 @@ const useStyles = createStyles(theme => ({
 interface TableSalesProps<TData, TValue> {
 	productData: TData[];
 	productColumns: ColumnDef<TData, TValue>[];
+	children: ReactNode;
 }
 
-export function TableSales<TData, TValue>({
+export function SalesTable<TData, TValue>({
 	productData,
 	productColumns,
+	children
 }: TableSalesProps<TData, TValue>) {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
@@ -149,7 +151,7 @@ export function TableSales<TData, TValue>({
 							);
 						})}
 				</ColumnVisibilityButton>
-				<CustomerSelectionForm />
+				{children}
 			</Flex>
 			<ScrollArea
 				style={{flex: '1  60vh'}}
