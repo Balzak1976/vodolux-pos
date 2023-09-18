@@ -1,13 +1,12 @@
 import { Flex, SimpleGrid } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import productData from '../data/productData.json';
+import { CustomerSelectionForm } from './CustomerSelectionForm';
 import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
 import { ButtonGroup } from './TableSales/ButtonGroup/ButtonGroup';
 import { productColumns } from './TableSales/ColumnDef';
 import { SalesTable } from './TableSales/SalesTable';
-import { CustomerSelectionForm } from './CustomerSelectionForm';
-import { useDisclosure } from '@mantine/hooks';
-import { ReceiptSummary } from './TableSales/ReceiptSummary';
 
 export default function SaleCreationSection() {
 	const [data, setData] = useState(productData);
@@ -30,7 +29,7 @@ export default function SaleCreationSection() {
 					isHandling={isHandling}>
 					<CustomerSelectionForm />
 				</SalesTable>
-				<ReceiptSummary/>
+				
 				<ButtonGroup onResetTableSales={resetTableSales} onSell={onSell} />
 			</Flex>
 			<ProductSelectionSection />

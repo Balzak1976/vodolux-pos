@@ -21,6 +21,7 @@ import {
 } from '@tanstack/react-table';
 
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
+import { ReceiptSummary } from './ReceiptSummary';
 
 declare module '@tanstack/react-table' {
 	interface TableMeta<TData extends RowData> {
@@ -126,6 +127,12 @@ export function SalesTable<TData, TValue>({
 		// debugTable: true,
 	});
 
+	const totals = table.getRowModel().rows.map(row => (
+		{'total': row.getValue('total') }
+	))
+	
+	console.log(totals.map(cell => cell.total))
+
 	return (
 		<>
 			<Flex
@@ -194,6 +201,8 @@ export function SalesTable<TData, TValue>({
 					</tbody>
 				</Table>
 			</ScrollArea>
+
+			<ReceiptSummary data={totals}/>
 		</>
 	);
 }

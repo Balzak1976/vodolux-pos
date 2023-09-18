@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { formatCurrency } from '../../utils/formatCurrency';
 import { SortButton } from './SortButton';
 import { TableCell } from './TableCell';
 
@@ -29,7 +28,8 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 		enableSorting: false
 	},
 	{
-		accessorFn: row => formatCurrency(row.qty * row.price),
+		id: 'total',
+		accessorFn: row => row.qty * row.price,
 		header: 'Итог',
 		enableSorting: false
 	},
