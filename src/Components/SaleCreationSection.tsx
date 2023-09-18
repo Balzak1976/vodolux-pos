@@ -7,6 +7,7 @@ import { productColumns } from './TableSales/ColumnDef';
 import { SalesTable } from './TableSales/SalesTable';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
 import { useDisclosure } from '@mantine/hooks';
+import { ReceiptSummary } from './TableSales/ReceiptSummary';
 
 export default function SaleCreationSection() {
 	const [data, setData] = useState(productData);
@@ -29,6 +30,7 @@ export default function SaleCreationSection() {
 					isHandling={isHandling}>
 					<CustomerSelectionForm />
 				</SalesTable>
+				<ReceiptSummary/>
 				<ButtonGroup onResetTableSales={resetTableSales} onSell={onSell} />
 			</Flex>
 			<ProductSelectionSection />
