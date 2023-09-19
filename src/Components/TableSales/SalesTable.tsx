@@ -127,12 +127,13 @@ export function SalesTable<TData, TValue>({
 		// debugTable: true,
 	});
 
-	const totals = table.getRowModel().rows.map(row => (
-		{'total': row.getValue('total') }
-	))
+	const totals: number[] = table.getRowModel().rows.map(row => (
+		row.getValue('total')
+	));
 	
-	console.log(totals.map(cell => cell.total))
-
+	const sumOfTotals = totals.reduce((prevVal, curVal) => prevVal + curVal, 0)
+	const numOfRows = totals.length;
+	
 	return (
 		<>
 			<Flex
@@ -202,7 +203,7 @@ export function SalesTable<TData, TValue>({
 				</Table>
 			</ScrollArea>
 
-			<ReceiptSummary data={totals}/>
+			<ReceiptSummary numOfRows={numOfRows} subTotal={sumOfTotals} />
 		</>
 	);
 }
