@@ -5,6 +5,8 @@ import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
 export function DiscountButton() {
 	const [active, setActive] = useState(true);
 
+	
+
 	const Icon = active ? IconCurrencyRubel : IconPercentage;
 
 	return (

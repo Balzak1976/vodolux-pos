@@ -6,9 +6,10 @@ import { ReceiptSaveCancelButton } from './ReceiptSaveCancelButton';
 interface ButtonGroupProps {
 	onResetTableSales: () => void;
 	onSell: () => void;
+	onSetDiscount: (val: number) => void;
 }
 
-export function ButtonGroup({ onResetTableSales, onSell }: ButtonGroupProps) {
+export function ButtonGroup({ onResetTableSales, onSell, onSetDiscount }: ButtonGroupProps) {
 	return (
 		<Grid p='xs' gutter='xs'>
 			<Grid.Col span={4}>
@@ -18,7 +19,9 @@ export function ButtonGroup({ onResetTableSales, onSell }: ButtonGroupProps) {
 				<PrintReceiptButton />
 			</Grid.Col>
 			<Grid.Col span={4}>
-				<DiscountButton />
+				{/* <DiscountButton onSetDiscount={onSetDiscount} /> */}
+				
+				<Button onClick={() => onSetDiscount(10)} fullWidth>Скидка10</Button>
 			</Grid.Col>
 			<Grid.Col span={12}>
 				<Button onClick={onSell} fullWidth>Продать</Button>

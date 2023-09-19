@@ -5,12 +5,17 @@ import productData from '../data/productData.json';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
 import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
 import { ButtonGroup } from './TableSales/ButtonGroup/ButtonGroup';
-import { productColumns } from './TableSales/ColumnDef';
+import { productColumns, ProductColumns } from './TableSales/ColumnDef';
 import { SalesTable } from './TableSales/SalesTable';
 
 export default function SaleCreationSection() {
-	const [data, setData] = useState(productData);
-	// console.log(data)
+	const [data, setData] = useState<ProductColumns[]>(productData);
+	console.log(data);
+
+	const addDiscount = (value: number): void => {
+		setData(old => old.map(row => ({ ...row, discount: value })));
+	};
+
 	const [isHandling, { toggle }] = useDisclosure(false);
 
 	const onSell = () => {
@@ -29,8 +34,8 @@ export default function SaleCreationSection() {
 					isHandling={isHandling}>
 					<CustomerSelectionForm />
 				</SalesTable>
-				
-				<ButtonGroup onResetTableSales={resetTableSales} onSell={onSell} />
+
+				<ButtonGroup onResetTableSales={resetTableSales} onSell={onSell} onSetDiscount={addDiscount}/>
 			</Flex>
 			<ProductSelectionSection />
 		</SimpleGrid>
