@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { CellWithInput } from './CellWithInput';
 import { SortButton } from './SortButton';
-import { TableCell } from './TableCell';
 
 export type ProductColumns = {
 	name: string;
@@ -19,13 +19,13 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 	{
 		accessorKey: 'qty',
 		header: 'Кол-во',
-		cell: TableCell,
+		cell: CellWithInput,
 		enableSorting: false
 	},
 	{
 		accessorKey: 'price',
 		header: 'Цена',
-		cell: TableCell,
+		cell: CellWithInput,
 		enableSorting: false
 	},
 	{

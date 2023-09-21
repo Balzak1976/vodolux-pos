@@ -1,6 +1,6 @@
 import { rem } from '@mantine/core';
+import { Column, Row, RowData, Table } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import { Table, Row, Column, RowData } from '@tanstack/react-table';
 
 declare module '@tanstack/react-table' {
 	interface TableMeta<TData extends RowData> {
@@ -8,19 +8,19 @@ declare module '@tanstack/react-table' {
 	}
 }
 
-interface TableCellProps<TData> {
+interface CellWithInputProps<TData> {
 	getValue: () => any;
 	table: Table<TData>;
 	row: Row<TData>;
 	column: Column<TData>;
 }
 
-export function TableCell<TData>({
+export function CellWithInput<TData>({
 	getValue,
 	table,
 	row,
 	column,
-}: TableCellProps<TData>) {
+}: CellWithInputProps<TData>) {
 	const initialValue = getValue();
 	const [value, setValue] = useState(initialValue);
   
