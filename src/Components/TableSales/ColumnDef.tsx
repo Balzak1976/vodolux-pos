@@ -37,7 +37,7 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 	{
 		accessorKey: 'discount',
 		header: 'Скидка',
-		cell: TableCell,
+		cell: val => val.getValue(),
 		enableSorting: false
 	},
 	{

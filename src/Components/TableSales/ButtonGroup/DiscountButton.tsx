@@ -2,17 +2,22 @@ import { useState } from 'react';
 import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
 
-export function DiscountButton() {
-	const [active, setActive] = useState(true);
+interface DiscountButtonProps {
+	onSetDiscount: (arg: number) => void;
+}
 
-	
+export function DiscountButton({ onSetDiscount }: DiscountButtonProps) {
+	const [active, setActive] = useState(true);
+	const [value, setValue] = useState<number | ''>(0);
 
 	const Icon = active ? IconCurrencyRubel : IconPercentage;
 
 	return (
 		<Menu shadow='md' position='top-end' closeOnItemClick={false}>
 			<Menu.Target>
-				<Button variant='outline' compact fullWidth>Скидка</Button>
+				<Button variant='outline' compact fullWidth>
+					Скидка
+				</Button>
 			</Menu.Target>
 
 			<Menu.Dropdown>
@@ -39,7 +44,9 @@ export function DiscountButton() {
 					py={'0.625rem'}
 					icon={<Icon color='blue' size={14} />}
 					min={0}
-					defaultValue={0}
+					value={value}
+					onChange={setValue}
+					onBlur={e => onSetDiscount(Number(e.target.value))}
 					size='xs'
 				/>
 			</Menu.Dropdown>

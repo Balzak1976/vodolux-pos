@@ -10,7 +10,7 @@ import { SalesTable } from './TableSales/SalesTable';
 
 export default function SaleCreationSection() {
 	const [data, setData] = useState<ProductColumns[]>(productData);
-	console.log(data);
+	// console.log(data);
 
 	const addDiscount = (value: number): void => {
 		setData(old => old.map(row => ({ ...row, discount: value })));
