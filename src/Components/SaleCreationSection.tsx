@@ -12,11 +12,7 @@ export default function SaleCreationSection() {
 	const [data, setData] = useState<ProductColumns[]>(productData);
 	// console.log(data);
 	const [discount, setDiscount] = useState(0);
-	console.log('discount: ', discount);
-
-	const addDiscount = (value: number): void => {
-		setData(old => old.map(row => ({ ...row, discount: value })));
-	};
+	// console.log('discount: ', discount);
 
 	const [isHandling, { toggle }] = useDisclosure(false);
 
@@ -34,7 +30,8 @@ export default function SaleCreationSection() {
 					productData={data}
 					productColumns={productColumns}
 					isHandling={isHandling}
-					discount={discount}>
+					discount={discount}
+					onSetDiscount={setDiscount}>
 					<CustomerSelectionForm />
 				</SalesTable>
 

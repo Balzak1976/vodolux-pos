@@ -1,4 +1,5 @@
 import { Table } from '@tanstack/react-table';
+import { Text } from '@mantine/core';
 
 interface CellWithDiscountProps<TData> {
 	table: Table<TData>;
@@ -7,7 +8,12 @@ interface CellWithDiscountProps<TData> {
 export function CellWithDiscount<ProductColumns>({
 	table,
 }: CellWithDiscountProps<ProductColumns>) {
-	const value = table.options.meta?.discount ?? 0;
+	let value = null;
+	const type = table.options.meta?.discount;
 
-	return <div>{value}</div>;
+	if (typeof type === 'number') {
+		value = Math.floor(type * 100);
+	}
+
+	return <Text ta='center'>{`${value}%`}</Text>;
 }

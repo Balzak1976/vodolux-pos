@@ -19,9 +19,7 @@ export function ButtonGroup({ onResetTableSales, onSell, onSetDiscount }: Button
 				<PrintReceiptButton />
 			</Grid.Col>
 			<Grid.Col span={4}>
-				<DiscountButton onSetDiscount={onSetDiscount} />
-				
-				{/* <Button onClick={() => onSetDiscount(10)} fullWidth>Скидка10</Button> */}
+				{/* <DiscountButton onSetDiscount={onSetDiscount}>Скидка</DiscountButton> */}
 			</Grid.Col>
 			<Grid.Col span={12}>
 				<Button onClick={onSell} fullWidth>Продать</Button>

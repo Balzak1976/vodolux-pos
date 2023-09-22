@@ -1,22 +1,56 @@
-import { useState } from 'react';
+import { useState, ReactNode, FocusEventHandler } from 'react';
 import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
 
 interface DiscountButtonProps {
 	onSetDiscount: (arg: number) => void;
+	percentDiscount: number;
+	subTotal: number;
+	children: ReactNode;
 }
 
-export function DiscountButton({ onSetDiscount }: DiscountButtonProps) {
-	const [active, setActive] = useState(true);
+export function DiscountButton({
+	onSetDiscount,
+	percentDiscount,
+	subTotal,
+	children,
+}: DiscountButtonProps) {
+	const [isCurrencyBtn, setIsCurrencyBtn] = useState(true);
 	const [value, setValue] = useState<number | ''>(0);
+	console.log('value: ', value);
 
-	const Icon = active ? IconCurrencyRubel : IconPercentage;
+	const Icon = isCurrencyBtn ? IconCurrencyRubel : IconPercentage;
+
+	const handleClickRubBtn = () => {
+		setIsCurrencyBtn(true);
+		const discountCurrency = subTotal * percentDiscount;
+
+		setValue(discountCurrency);
+	};
+
+	const handleClickPercentageBtn = () => {
+		setIsCurrencyBtn(false);
+		setValue(percentDiscount);
+	};
+
+	const onBlur: FocusEventHandler<HTMLInputElement> = e => {
+		let percentDiscount = 0;
+		const numericValue = Number(e.target.value);
+
+		if (isCurrencyBtn === false && numericValue !== 0) {
+			percentDiscount = numericValue / 100;
+		} else if (isCurrencyBtn === true && numericValue !== 0) {
+			percentDiscount = numericValue / subTotal;
+		}
+
+		onSetDiscount(percentDiscount);
+	};
 
 	return (
-		<Menu shadow='md' position='top-end' closeOnItemClick={false}>
+		<Menu shadow='md' position='top' closeOnItemClick={false}>
 			<Menu.Target>
-				<Button variant='outline' compact fullWidth>
-					Скидка
+				<Button variant='outline' compact>
+					{children}
 				</Button>
 			</Menu.Target>
 
@@ -24,16 +58,16 @@ export function DiscountButton({ onSetDiscount }: DiscountButtonProps) {
 				<Menu.Label>Размер скидки</Menu.Label>
 				<Flex px={'0.75rem'} py={'0.625rem'} gap='xs'>
 					<ActionIcon
-						onClick={() => setActive(true)}
+						onClick={handleClickRubBtn}
 						w='50%'
-						variant={active ? 'filled' : 'light'}
+						variant={isCurrencyBtn ? 'filled' : 'light'}
 						color='blue'>
 						<IconCurrencyRubel size='1.125rem' />
 					</ActionIcon>
 					<ActionIcon
-						onClick={() => setActive(false)}
+						onClick={handleClickPercentageBtn}
 						w='50%'
-						variant={active ? 'light' : 'filled'}
+						variant={isCurrencyBtn ? 'light' : 'filled'}
 						color='blue'>
 						<IconPercentage size='1.125rem' />
 					</ActionIcon>
@@ -46,7 +80,7 @@ export function DiscountButton({ onSetDiscount }: DiscountButtonProps) {
 					min={0}
 					value={value}
 					onChange={setValue}
-					onBlur={e => onSetDiscount(Number(e.target.value))}
+					onBlur={onBlur}
 					size='xs'
 				/>
 			</Menu.Dropdown>

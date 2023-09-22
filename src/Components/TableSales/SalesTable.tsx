@@ -82,6 +82,7 @@ interface TableSalesProps<TData, TValue> {
 	productColumns: ColumnDef<TData, TValue>[];
 	isHandling: boolean;
 	discount: number;
+	onSetDiscount: (arg: number) => void;
 	children: ReactNode;
 }
 
@@ -90,6 +91,7 @@ export function SalesTable<TData, TValue>({
 	productColumns,
 	isHandling,
 	discount,
+	onSetDiscount,
 	children,
 }: TableSalesProps<TData, TValue>) {
 	const { classes, cx } = useStyles();
@@ -211,6 +213,7 @@ export function SalesTable<TData, TValue>({
 				numOfRows={numOfRows}
 				discount={discount}
 				subTotal={sumOfTotals}
+				onSetDiscount={onSetDiscount}
 			/>
 		</>
 	);
