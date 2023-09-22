@@ -11,6 +11,8 @@ import { SalesTable } from './TableSales/SalesTable';
 export default function SaleCreationSection() {
 	const [data, setData] = useState<ProductColumns[]>(productData);
 	// console.log(data);
+	const [discount, setDiscount] = useState(0);
+	console.log('discount: ', discount);
 
 	const addDiscount = (value: number): void => {
 		setData(old => old.map(row => ({ ...row, discount: value })));
@@ -31,11 +33,16 @@ export default function SaleCreationSection() {
 				<SalesTable
 					productData={data}
 					productColumns={productColumns}
-					isHandling={isHandling}>
+					isHandling={isHandling}
+					discount={discount}>
 					<CustomerSelectionForm />
 				</SalesTable>
 
-				<ButtonGroup onResetTableSales={resetTableSales} onSell={onSell} onSetDiscount={addDiscount}/>
+				<ButtonGroup
+					onResetTableSales={resetTableSales}
+					onSell={onSell}
+					onSetDiscount={setDiscount}
+				/>
 			</Flex>
 			<ProductSelectionSection />
 		</SimpleGrid>

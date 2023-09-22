@@ -25,6 +25,7 @@ import { ReceiptSummary } from './ReceiptSummary';
 
 declare module '@tanstack/react-table' {
 	interface TableMeta<TData extends RowData> {
+		discount: number;
 		updateData: (rowIndex: number, columnId: string, value: unknown) => void;
 	}
 }
@@ -80,6 +81,7 @@ interface TableSalesProps<TData, TValue> {
 	productData: TData[];
 	productColumns: ColumnDef<TData, TValue>[];
 	isHandling: boolean;
+	discount: number;
 	children: ReactNode;
 }
 
@@ -87,6 +89,7 @@ export function SalesTable<TData, TValue>({
 	productData,
 	productColumns,
 	isHandling,
+	discount,
 	children,
 }: TableSalesProps<TData, TValue>) {
 	const { classes, cx } = useStyles();
@@ -113,6 +116,7 @@ export function SalesTable<TData, TValue>({
 		getSortedRowModel: getSortedRowModel(),
 		// добавляем кастомную ф-ю updateData в table.option.meta
 		meta: {
+			discount,
 			updateData: (rowIndex, columnId, value) =>
 				setData(old =>
 					old.map((row, index) => {
@@ -127,13 +131,13 @@ export function SalesTable<TData, TValue>({
 		// debugTable: true,
 	});
 
-	const totals: number[] = table.getRowModel().rows.map(row => (
-		row.getValue('total')
-	));
-	
-	const sumOfTotals = totals.reduce((prevVal, curVal) => prevVal + curVal, 0)
+	const totals: number[] = table
+		.getRowModel()
+		.rows.map(row => row.getValue('total'));
+
+	const sumOfTotals = totals.reduce((prevVal, curVal) => prevVal + curVal, 0);
 	const numOfRows = totals.length;
-	
+
 	return (
 		<>
 			<Flex
@@ -203,7 +207,11 @@ export function SalesTable<TData, TValue>({
 				</Table>
 			</ScrollArea>
 
-			<ReceiptSummary numOfRows={numOfRows} subTotal={sumOfTotals} />
+			<ReceiptSummary
+				numOfRows={numOfRows}
+				discount={discount}
+				subTotal={sumOfTotals}
+			/>
 		</>
 	);
 }

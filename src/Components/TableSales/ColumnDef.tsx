@@ -1,8 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { CellWithInput } from './CellWithInput';
 import { SortButton } from './SortButton';
+import { CellWithDiscount } from './CellWithDiscount';
 
-export type ProductColumns = {
+export interface ProductColumns {
 	name: string;
 	qty: number;
 	price: number;
@@ -29,15 +30,15 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 		enableSorting: false
 	},
 	{
-		id: 'total',
-		accessorFn: row => row.qty * row.price,
-		header: 'Итог',
+		accessorKey: 'discount',
+		header: 'Скидка',
+		cell: CellWithDiscount,
 		enableSorting: false
 	},
 	{
-		accessorKey: 'discount',
-		header: 'Скидка',
-		cell: val => val.getValue(),
+		id: 'total',
+		accessorFn: row => row.qty * row.price,
+		header: 'Итог',
 		enableSorting: false
 	},
 	{
