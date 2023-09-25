@@ -25,7 +25,6 @@ import { ReceiptSummary } from './ReceiptSummary';
 
 declare module '@tanstack/react-table' {
 	interface TableMeta<TData extends RowData> {
-		discount: number;
 		updateData: (rowIndex: number, columnId: string, value: unknown) => void;
 	}
 }
@@ -118,7 +117,6 @@ export function SalesTable<TData, TValue>({
 		getSortedRowModel: getSortedRowModel(),
 		// добавляем кастомную ф-ю updateData в table.option.meta
 		meta: {
-			discount,
 			updateData: (rowIndex, columnId, value) =>
 				setData(old =>
 					old.map((row, index) => {

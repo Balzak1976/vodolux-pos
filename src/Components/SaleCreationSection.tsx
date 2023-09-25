@@ -1,18 +1,29 @@
 import { Flex, SimpleGrid } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import productData from '../data/productData.json';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
 import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
 import { ButtonGroup } from './TableSales/ButtonGroup/ButtonGroup';
-import { productColumns, ProductColumns } from './TableSales/ColumnDef';
+import {
+	productColumns,
+	ProductColumns as TData,
+} from './TableSales/ColumnDef';
 import { SalesTable } from './TableSales/SalesTable';
 
+const addColumn = (
+	productData: TData[],
+	column: { [key: string]: number }
+): TData[] =>
+	productData.map(
+		(originalRow): TData => Object.assign({}, originalRow, column)
+	);
+
 export default function SaleCreationSection() {
-	const [data, setData] = useState<ProductColumns[]>(productData);
-	// console.log(data);
+	const [data, setData] = useState<TData[]>(
+		addColumn(productData, { discount: 0 })
+	);
 	const [discount, setDiscount] = useState(0);
-	// console.log('discount: ', discount);
 
 	const [isHandling, { toggle }] = useDisclosure(false);
 
@@ -22,6 +33,10 @@ export default function SaleCreationSection() {
 	const resetTableSales = () => {
 		setData([]);
 	};
+
+	useEffect(() => {
+		setData(data => addColumn(data, { discount }));
+	}, [discount]);
 
 	return (
 		<SimpleGrid cols={1} spacing={0}>

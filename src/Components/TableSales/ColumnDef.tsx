@@ -13,6 +13,7 @@ export interface ProductColumns {
 
 const getTotal = (row: ProductColumns) => {
 	let discount = row.discount;
+
 	if (typeof discount === 'number') {
 		return row.qty * row.price * (1 - discount);
 	}
