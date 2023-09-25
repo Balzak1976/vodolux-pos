@@ -17,7 +17,6 @@ export function DiscountButton({
 }: DiscountButtonProps) {
 	const [isCurrencyBtn, setIsCurrencyBtn] = useState(true);
 	const [value, setValue] = useState<number | ''>(0);
-	console.log('value: ', value);
 
 	const Icon = isCurrencyBtn ? IconCurrencyRubel : IconPercentage;
 

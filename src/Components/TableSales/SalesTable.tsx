@@ -133,12 +133,14 @@ export function SalesTable<TData, TValue>({
 		// debugTable: true,
 	});
 
-	const totals: number[] = table
-		.getRowModel()
-		.rows.map(row => row.getValue('total'));
+	const getTotalColumn = (columnId: string): number => {
+		return table
+			.getRowModel()
+			.rows.reduce((total, cellValue) => total + (cellValue.getValue(columnId) as number), 0);
+	};
 
-	const sumOfTotals = totals.reduce((prevVal, curVal) => prevVal + curVal, 0);
-	const numOfRows = totals.length;
+	const sumOfTotals = getTotalColumn('total');
+	const numOfRows = table.getRowModel().rows.length;
 
 	return (
 		<>
