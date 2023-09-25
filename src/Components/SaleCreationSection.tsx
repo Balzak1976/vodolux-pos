@@ -24,7 +24,7 @@ export default function SaleCreationSection() {
 	};
 
 	return (
-		<SimpleGrid cols={2} spacing={0}>
+		<SimpleGrid cols={1} spacing={0}>
 			<Flex direction='column' justify='space-between'>
 				<SalesTable
 					productData={data}
@@ -41,7 +41,7 @@ export default function SaleCreationSection() {
 					onSetDiscount={setDiscount}
 				/>
 			</Flex>
-			<ProductSelectionSection />
+			{/* <ProductSelectionSection /> */}
 		</SimpleGrid>
 	);
 }

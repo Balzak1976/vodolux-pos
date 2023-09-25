@@ -1,4 +1,4 @@
-import { useState, ReactNode, FocusEventHandler } from 'react';
+import { useState, ReactNode, FocusEventHandler, useEffect } from 'react';
 import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
 
@@ -37,15 +37,25 @@ export function DiscountButton({
 		let percentDiscount = 0;
 		const numericValue = Number(e.target.value);
 
-		if (isCurrencyBtn === false && numericValue !== 0) {
-			percentDiscount = numericValue / 100;
-		} else if (isCurrencyBtn === true && numericValue !== 0) {
+		if (isCurrencyBtn === true && numericValue !== 0) {
 			percentDiscount = numericValue / subTotal;
+		} else if (isCurrencyBtn === false && numericValue !== 0) {
+			percentDiscount = numericValue / 100;
 		}
 
 		onSetDiscount(percentDiscount);
 	};
 
+/* 	useEffect(() => {
+		let percentDiscount = 0;
+		if (isCurrencyBtn === true) {
+			percentDiscount = numericValue / subTotal;
+			setValue() 
+		} else if (isCurrencyBtn === false) {
+			percentDiscount = numericValue / 100;
+		}
+	}, [isCurrencyBtn])
+ */
 	return (
 		<Menu shadow='md' position='top' closeOnItemClick={false}>
 			<Menu.Target>

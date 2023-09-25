@@ -11,6 +11,13 @@ export interface ProductColumns {
 	discount?: number;
 }
 
+const getTotal = (row: ProductColumns) => {
+	let discount = row.discount;
+	if (typeof discount === 'number') {
+		return row.qty * row.price * (1 - discount);
+	}
+};
+
 export const productColumns: ColumnDef<ProductColumns>[] = [
 	{
 		accessorKey: 'name',
@@ -39,7 +46,7 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 	},
 	{
 		id: 'total',
-		accessorFn: row => row.qty * row.price,
+		accessorFn: getTotal,
 		header: 'Итог',
 		enableSorting: false,
 	},
