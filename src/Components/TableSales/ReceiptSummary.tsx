@@ -18,8 +18,8 @@ export function ReceiptSummary({
 	onSetDiscount,
 }: ReceiptSummaryProps) {
 	
-	let discountFraction = getDiscountFraction(total, subTotal)
-	const percentageDiscount = roundDecimal(discountFraction * 100, 2)
+	let summaryDiscountFraction = getDiscountFraction(total, subTotal)
+	const percentageDiscount = roundDecimal(summaryDiscountFraction * 100, 2)
 
 	return (
 		<Flex p='xs' gap='xs' justify='space-between' align='end' bg='#e7f5ff'>
@@ -31,7 +31,7 @@ export function ReceiptSummary({
 			</Text>
 			<DiscountButton
 				onSetDiscount={onSetDiscount}
-				discountFraction={discountFraction}
+				discountFraction={summaryDiscountFraction}
 				subTotal={subTotal}>
 				{`${formatCurrency(subTotal - total)} (${percentageDiscount}%)`}
 			</DiscountButton>

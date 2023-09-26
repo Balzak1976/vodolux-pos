@@ -33,15 +33,15 @@ export function DiscountButton({
 	};
 
 	const onChange = (value: number): void => {
-		let percentDiscount: number;
+		let discountFraction: number;
 		if (isCurrencyBtn && value !== 0) {
-			percentDiscount = value / subTotal;
+			discountFraction = value / subTotal;
 		} else if (!isCurrencyBtn && value !== 0) {
-			percentDiscount = value / 100;
+			discountFraction = value / 100;
 		} else {
-			percentDiscount = 0;
+			discountFraction = 0;
 		}
-		onSetDiscount(percentDiscount);
+		onSetDiscount(discountFraction);
 		setValue(value);
 	};
 
