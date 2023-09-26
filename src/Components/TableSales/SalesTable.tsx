@@ -131,14 +131,24 @@ export function SalesTable<TData, TValue>({
 		// debugTable: true,
 	});
 
-	const getTotalColumn = (columnId: string): number => {
-		return table
+	const getTotalColumn = (columnId: string): number =>
+		table
 			.getRowModel()
-			.rows.reduce((total, cellValue) => total + (cellValue.getValue(columnId) as number), 0);
-	};
+			.rows.reduce(
+				(total, cellValue) => total + cellValue.getValue<number>(columnId),
+				0
+			);
 
-	const sumOfTotals = getTotalColumn('total');
-	const numOfRows = table.getRowModel().rows.length;
+	const getSubTotal = (): number =>
+		table
+			.getRowModel()
+			.rows.reduce(
+				(total, cellValue) =>
+					total +
+					cellValue.getValue<number>('qty') *
+						cellValue.getValue<number>('price'),
+				0
+			);
 
 	return (
 		<>
@@ -210,10 +220,11 @@ export function SalesTable<TData, TValue>({
 			</ScrollArea>
 
 			<ReceiptSummary
-				numOfRows={numOfRows}
 				discount={discount}
-				subTotal={sumOfTotals}
 				onSetDiscount={onSetDiscount}
+				numOfRows={table.getRowModel().rows.length}
+				subTotal={getSubTotal()}
+				total={getTotalColumn('total')}
 			/>
 		</>
 	);

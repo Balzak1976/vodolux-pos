@@ -1,17 +1,17 @@
-import { useState, ReactNode, FocusEventHandler, useEffect } from 'react';
 import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
+import { FocusEventHandler, ReactNode, useState } from 'react';
 
 interface DiscountButtonProps {
 	onSetDiscount: (arg: number) => void;
-	percentDiscount: number;
+	discountFraction: number;
 	subTotal: number;
 	children: ReactNode;
 }
 
 export function DiscountButton({
 	onSetDiscount,
-	percentDiscount,
+	discountFraction,
 	subTotal,
 	children,
 }: DiscountButtonProps) {
@@ -20,26 +20,26 @@ export function DiscountButton({
 
 	const Icon = isCurrencyBtn ? IconCurrencyRubel : IconPercentage;
 
-	const handleClickRubBtn = () => {
+	const handleClickCurrencyBtn = () => {
 		setIsCurrencyBtn(true);
-		const discountCurrency = subTotal * percentDiscount;
+		const discountAmount = subTotal * discountFraction;
 
-		setValue(discountCurrency);
+		setValue(discountAmount);
 	};
 
 	const handleClickPercentageBtn = () => {
 		setIsCurrencyBtn(false);
-		setValue(percentDiscount);
+		setValue(discountFraction * 100);
 	};
 
 	const onBlur: FocusEventHandler<HTMLInputElement> = e => {
 		let percentDiscount = 0;
-		const numericValue = Number(e.target.value);
+		const value = Number(e.target.value);
 
-		if (isCurrencyBtn === true && numericValue !== 0) {
-			percentDiscount = numericValue / subTotal;
-		} else if (isCurrencyBtn === false && numericValue !== 0) {
-			percentDiscount = numericValue / 100;
+		if (isCurrencyBtn === true && value !== 0) {
+			percentDiscount = value / subTotal;
+		} else if (isCurrencyBtn === false && value !== 0) {
+			percentDiscount = value / 100;
 		}
 
 		onSetDiscount(percentDiscount);
@@ -67,7 +67,7 @@ export function DiscountButton({
 				<Menu.Label>Размер скидки</Menu.Label>
 				<Flex px={'0.75rem'} py={'0.625rem'} gap='xs'>
 					<ActionIcon
-						onClick={handleClickRubBtn}
+						onClick={handleClickCurrencyBtn}
 						w='50%'
 						variant={isCurrencyBtn ? 'filled' : 'light'}
 						color='blue'>

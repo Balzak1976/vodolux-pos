@@ -24,6 +24,7 @@ export default function SaleCreationSection() {
 		addColumn(productData, { discount: 0 })
 	);
 	const [discount, setDiscount] = useState(0);
+	console.log('discount: ', discount);
 
 	const [isHandling, { toggle }] = useDisclosure(false);
 
