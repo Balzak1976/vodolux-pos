@@ -86,7 +86,12 @@ export function DiscountButton({
 					px={'0.75rem'}
 					py={'0.625rem'}
 					icon={<Icon color='blue' size={14} />}
+					// Minimal possible value
 					min={0}
+					// Amount of digits after the decimal point
+					precision={isCurrencyBtn ? 0 : 2}
+					// Number by which value will be incremented/decremented with controls and up/down arrows
+					step={isCurrencyBtn ? 1 : 0.01}
 					value={value}
 					onChange={setValue}
 					onBlur={onBlur}
