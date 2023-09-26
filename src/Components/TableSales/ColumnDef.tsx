@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { DiscountCell } from './DiscountCell';
 import { CellWithInput } from './CellWithInput';
 import { SortButton } from './SortButton';
-import { CellWithDiscount } from './CellWithDiscount';
 
 export interface ProductColumns {
 	name: string;
@@ -42,7 +42,7 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 	{
 		accessorKey: 'discount',
 		header: 'Скидка',
-		cell: CellWithDiscount,
+		cell: DiscountCell,
 		enableSorting: false,
 	},
 	{
