@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
-import { FocusEventHandler, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 interface DiscountButtonProps {
 	onSetDiscount: (arg: number) => void;
@@ -32,29 +32,19 @@ export function DiscountButton({
 		setValue(discountFraction * 100);
 	};
 
-	const onBlur: FocusEventHandler<HTMLInputElement> = e => {
-		let percentDiscount = 0;
-		const value = Number(e.target.value);
-
-		if (isCurrencyBtn === true && value !== 0) {
+	const onChange = (value: number): void => {
+		let percentDiscount: number;
+		if (isCurrencyBtn && value !== 0) {
 			percentDiscount = value / subTotal;
-		} else if (isCurrencyBtn === false && value !== 0) {
+		} else if (!isCurrencyBtn && value !== 0) {
 			percentDiscount = value / 100;
+		} else {
+			percentDiscount = 0;
 		}
-
 		onSetDiscount(percentDiscount);
+		setValue(value);
 	};
 
-/* 	useEffect(() => {
-		let percentDiscount = 0;
-		if (isCurrencyBtn === true) {
-			percentDiscount = numericValue / subTotal;
-			setValue() 
-		} else if (isCurrencyBtn === false) {
-			percentDiscount = numericValue / 100;
-		}
-	}, [isCurrencyBtn])
- */
 	return (
 		<Menu shadow='md' position='top' closeOnItemClick={false}>
 			<Menu.Target>
@@ -89,12 +79,11 @@ export function DiscountButton({
 					// Minimal possible value
 					min={0}
 					// Amount of digits after the decimal point
-					precision={isCurrencyBtn ? 0 : 2}
+					precision={isCurrencyBtn ? 0 : 0}
 					// Number by which value will be incremented/decremented with controls and up/down arrows
-					step={isCurrencyBtn ? 1 : 0.01}
+					step={isCurrencyBtn ? 1 : 1}
 					value={value}
-					onChange={setValue}
-					onBlur={onBlur}
+					onChange={onChange}
 					size='xs'
 				/>
 			</Menu.Dropdown>
