@@ -80,7 +80,6 @@ interface TableSalesProps<TData, TValue> {
 	productData: TData[];
 	productColumns: ColumnDef<TData, TValue>[];
 	isHandling: boolean;
-	discount: number;
 	onSetDiscount: (arg: number) => void;
 	children: ReactNode;
 }
@@ -89,7 +88,6 @@ export function SalesTable<TData, TValue>({
 	productData,
 	productColumns,
 	isHandling,
-	discount,
 	onSetDiscount,
 	children,
 }: TableSalesProps<TData, TValue>) {
@@ -220,7 +218,6 @@ export function SalesTable<TData, TValue>({
 			</ScrollArea>
 
 			<ReceiptSummary
-				discount={discount}
 				onSetDiscount={onSetDiscount}
 				numOfRows={table.getRowModel().rows.length}
 				subTotal={getSubTotal()}

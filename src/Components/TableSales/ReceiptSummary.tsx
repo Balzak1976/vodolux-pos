@@ -5,7 +5,6 @@ import { DiscountButton } from './ButtonGroup/DiscountButton';
 
 interface ReceiptSummaryProps {
 	numOfRows: number;
-	discount?: number;
 	subTotal?: number;
 	total?: number;
 	onSetDiscount: (val: number) => void;
@@ -14,7 +13,6 @@ interface ReceiptSummaryProps {
 
 export function ReceiptSummary({
 	numOfRows,
-	discount = 0, // скидка в формате 0.1
 	subTotal = 0,
 	total = 0,
 	onSetDiscount,
@@ -36,7 +34,6 @@ export function ReceiptSummary({
 				discountFraction={discountFraction}
 				subTotal={subTotal}>
 				{`${formatCurrency(subTotal - total)} (${percentageDiscount}%)`}
-				скидка
 			</DiscountButton>
 
 			<Flex direction='column'>

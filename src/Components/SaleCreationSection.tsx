@@ -44,7 +44,6 @@ export default function SaleCreationSection() {
 					productData={data}
 					productColumns={productColumns}
 					isHandling={isHandling}
-					discount={discount}
 					onSetDiscount={setDiscount}>
 					<CustomerSelectionForm />
 				</SalesTable>
