@@ -1,8 +1,12 @@
 export function getDiscountFraction(
 	discountedPrice: number,
-	originalPrice: number,
-	round: number
+	originalPrice: number
 ): number {
 	const fraction = (originalPrice - discountedPrice) / originalPrice;
-	return parseFloat(fraction.toFixed(round));
+	return fraction;
+}
+
+export function roundDecimal(number: number, decimalPlaces: number): number {
+	const factor = Math.pow(10, decimalPlaces);
+	return Math.round(number * factor) / factor;
 }

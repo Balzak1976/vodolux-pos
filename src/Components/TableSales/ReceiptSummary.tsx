@@ -1,5 +1,5 @@
 import { Flex, Text } from '@mantine/core';
-import { getDiscountFraction } from '../../utils/discount';
+import { getDiscountFraction, roundDecimal } from '../../utils/discount';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { DiscountButton } from './ButtonGroup/DiscountButton';
 
@@ -20,7 +20,8 @@ export function ReceiptSummary({
 	onSetDiscount,
 }: ReceiptSummaryProps) {
 	
-	let discountFraction = getDiscountFraction(total, subTotal, 4)
+	let discountFraction = getDiscountFraction(total, subTotal)
+	const percentageDiscount = roundDecimal(discountFraction * 100, 2)
 
 	return (
 		<Flex p='xs' gap='xs' justify='space-between' align='end' bg='#e7f5ff'>
@@ -34,7 +35,7 @@ export function ReceiptSummary({
 				onSetDiscount={onSetDiscount}
 				discountFraction={discountFraction}
 				subTotal={subTotal}>
-				{`${formatCurrency(subTotal - total)} (${discountFraction * 100}%)`}
+				{`${formatCurrency(subTotal - total)} (${percentageDiscount}%)`}
 				скидка
 			</DiscountButton>
 
