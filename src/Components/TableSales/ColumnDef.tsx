@@ -2,6 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { DiscountCell } from './DiscountCell';
 import { CellWithInput } from './CellWithInput';
 import { SortButton } from './SortButton';
+import { roundDecimal } from '../../utils/discount';
 
 export interface ProductColumns {
 	name: string;
@@ -49,6 +50,7 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 		id: 'total',
 		accessorFn: getTotal,
 		header: 'Итог',
+		cell: val => roundDecimal(val.getValue() as number),
 		enableSorting: false,
 	},
 	{

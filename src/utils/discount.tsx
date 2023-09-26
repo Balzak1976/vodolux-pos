@@ -6,7 +6,7 @@ export function getDiscountFraction(
 	return fraction;
 }
 
-export function roundDecimal(number: number, decimalPlaces: number): number {
+export function roundDecimal(number: number, decimalPlaces: number = 1): number {
 	const factor = Math.pow(10, decimalPlaces);
 	return Math.round(number * factor) / factor;
 }
