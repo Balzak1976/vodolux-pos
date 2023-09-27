@@ -76,15 +76,19 @@ export function DiscountButton({
 					px={'0.75rem'}
 					py={'0.625rem'}
 					icon={<Icon color='blue' size={14} />}
+					value={value}
+					onChange={onChange}
+					size='xs'
 					// Minimal possible value
 					min={0}
 					// Amount of digits after the decimal point
 					precision={isCurrencyBtn ? 0 : 0}
 					// Number by which value will be incremented/decremented with controls and up/down arrows
 					step={isCurrencyBtn ? 1 : 1}
-					value={value}
-					onChange={onChange}
-					size='xs'
+					// Initial delay in milliseconds before stepping the value
+					stepHoldDelay={500}
+					// Delay before stepping the value. Can be a number of milliseconds or a function that receives the current step count and returns the delay in milliseconds.
+					stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
 				/>
 			</Menu.Dropdown>
 		</Menu>
