@@ -79,6 +79,8 @@ export function DiscountButton({
 					value={value}
 					onChange={onChange}
 					size='xs'
+					// Maximal possible value
+					max={isCurrencyBtn ? (subTotal * 0.5) : 50}
 					// Minimal possible value
 					min={0}
 					// Amount of digits after the decimal point
