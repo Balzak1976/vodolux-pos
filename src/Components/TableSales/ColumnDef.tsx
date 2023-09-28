@@ -3,6 +3,7 @@ import { DiscountCell } from './DiscountCell';
 import { CellWithInput } from './CellWithInput';
 import { SortButton } from './SortButton';
 import { roundDecimal } from '../../utils/discount';
+import { CellWithComponent } from './CellWithComponent';
 
 export interface ProductColumns {
 	name: string;
@@ -43,7 +44,8 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 	{
 		accessorKey: 'discount',
 		header: 'Скидка',
-		cell: DiscountCell,
+		// cell: DiscountCell,
+		cell: CellWithComponent,
 		enableSorting: false,
 	},
 	{
