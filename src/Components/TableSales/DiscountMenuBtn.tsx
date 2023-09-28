@@ -1,30 +1,26 @@
-import {
-	ActionIcon,
-	Flex,
-	Menu,
-	NumberInput,
-	Button,
-	UnstyledButton,
-	Text,
-} from '@mantine/core';
+import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
-import { ReactNode, useState, useEffect, ReactEventHandler } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
-interface DiscountMenuRowProps {
+interface DiscountMenuBtnProps {
 	onSetDiscount: (arg: number) => void;
 	discountFraction: number;
 	subTotal: number;
-	onBlur: ReactEventHandler;
+	menuBtnStyle?: string;
+	menuBtnCompact?: boolean;
+	menuWith?: string | number;
 	children: ReactNode;
 }
 
-export function DiscountMenuRow({
+export function DiscountMenuBtn({
 	onSetDiscount,
 	discountFraction,
 	subTotal,
-	onBlur,
+	menuBtnStyle = 'outline',
+	menuBtnCompact = true,
+	menuWith,
 	children,
-}: DiscountMenuRowProps) {
+}: DiscountMenuBtnProps) {
 	const [isCurrencyBtn, setIsCurrencyBtn] = useState(true);
 	const discountAmount = subTotal * discountFraction;
 	const initialValue = isCurrencyBtn ? discountAmount : discountFraction * 100;
@@ -63,7 +59,7 @@ export function DiscountMenuRow({
 	return (
 		<Menu shadow='md' position='top' closeOnItemClick={false}>
 			<Menu.Target>
-				<Button variant='outline' compact>
+				<Button variant={menuBtnStyle} compact={menuBtnCompact}>
 					{children}
 				</Button>
 			</Menu.Target>
@@ -93,8 +89,8 @@ export function DiscountMenuRow({
 					icon={<Icon color='blue' size={14} />}
 					value={value}
 					onChange={onChange}
-					onBlur={onBlur}
 					size='xs'
+					w={menuWith}
 					// Maximal possible value
 					max={isCurrencyBtn ? subTotal * 0.5 : 50}
 					// Minimal possible value

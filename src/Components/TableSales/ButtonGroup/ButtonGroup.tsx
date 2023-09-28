@@ -1,5 +1,4 @@
 import { Button, Grid } from '@mantine/core';
-import { DiscountButton } from './DiscountButton';
 import { PrintReceiptButton } from './PrintReceiptButton';
 import { ReceiptSaveCancelButton } from './ReceiptSaveCancelButton';
 
@@ -19,7 +18,6 @@ export function ButtonGroup({ onResetTableSales, onSell, onSetDiscount }: Button
 				<PrintReceiptButton />
 			</Grid.Col>
 			<Grid.Col span={4}>
-				{/* <DiscountButton onSetDiscount={onSetDiscount}>Скидка</DiscountButton> */}
 			</Grid.Col>
 			<Grid.Col span={12}>
 				<Button onClick={onSell} fullWidth>Продать</Button>

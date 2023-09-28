@@ -1,8 +1,6 @@
-import { rem, Text } from '@mantine/core';
 import { Column, Row, RowData, Table } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
-import { DiscountMenuRow } from './DiscountMenuRow';
 import { roundDecimal } from '../../utils/discount';
+import { DiscountMenuBtn } from './DiscountMenuBtn';
 
 declare module '@tanstack/react-table' {
 	interface TableMeta<TData extends RowData> {
@@ -29,25 +27,19 @@ export function CellWithComponent<TData>({
 	const qtyValue: number = row.getValue('qty');
 	const priceValue: number = row.getValue('price');
 	const subTotal: number = qtyValue * priceValue;
-	console.log('subTotal: ', subTotal);
 
-	const [value, setValue] = useState(initialDiscountFraction);
-
-	useEffect(() => {
-		setValue(initialDiscountFraction);
-	}, [initialDiscountFraction]);
-
-	const onBlur = () => {
+	const setDiscount = (value: number) => {
 		table.options.meta?.updateData(row.index, column.id, value);
 	};
 
 	return (
-		<DiscountMenuRow
-			onSetDiscount={setValue}
+		<DiscountMenuBtn
+			onSetDiscount={setDiscount}
 			discountFraction={initialDiscountFraction}
 			subTotal={subTotal}
-			onBlur={onBlur}>
+			menuWith={100}
+		>
 			{`${percentageValue}%`}
-		</DiscountMenuRow>
+		</DiscountMenuBtn>
 	);
 }
