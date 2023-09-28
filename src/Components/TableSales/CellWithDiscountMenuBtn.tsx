@@ -8,19 +8,19 @@ declare module '@tanstack/react-table' {
 	}
 }
 
-interface CellWithComponentProps<TData> {
+interface CellWithDiscountMenuBtnProps<TData> {
 	getValue: () => any;
 	table: Table<TData>;
 	row: Row<TData>;
 	column: Column<TData>;
 }
 
-export function CellWithComponent<TData>({
+export function CellWithDiscountMenuBtn<TData>({
 	getValue,
 	table,
 	row,
 	column,
-}: CellWithComponentProps<TData>) {
+}: CellWithDiscountMenuBtnProps<TData>) {
 	const initialDiscountFraction = getValue();
 	const percentageValue = roundDecimal(initialDiscountFraction * 100, 2);
 
