@@ -10,6 +10,8 @@ export interface ProductColumns {
 	price: number;
 	stocks: number;
 	discount?: number;
+	canMarkup: boolean;
+	canDiscount: boolean;
 }
 
 const getTotal = (row: ProductColumns) => {

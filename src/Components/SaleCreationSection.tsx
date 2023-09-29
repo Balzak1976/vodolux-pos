@@ -13,15 +13,16 @@ import { SalesTable } from './TableSales/SalesTable';
 
 const addColumn = (
 	productData: TData[],
-	column: { [key: string]: number }
+	column: { [key: string]: number | boolean }
 ): TData[] =>
 	productData.map(
 		(originalRow): TData => Object.assign({}, originalRow, column)
 	);
 
 export default function SaleCreationSection() {
-	const [data, setData] = useState<TData[]>(
-		addColumn(productData, { discount: 0 })
+	const [product, setProduct] = useState<TData[]>(
+		addColumn(productData, { discount: 0, canMarkup: true,
+    canDiscount: true })
 	);
 	const [discount, setDiscount] = useState(0);
 	const [isHandling, { toggle }] = useDisclosure(false);
@@ -30,18 +31,18 @@ export default function SaleCreationSection() {
 		toggle();
 	};
 	const resetTableSales = () => {
-		setData([]);
+		setProduct([]);
 	};
 
 	useEffect(() => {
-		setData(data => addColumn(data, { discount }));
+		setProduct(data => addColumn(data, { discount }));
 	}, [discount]);
 
 	return (
 		<SimpleGrid cols={1} spacing={0}>
 			<Flex direction='column' justify='space-between'>
 				<SalesTable
-					productData={data}
+					productData={product}
 					productColumns={productColumns}
 					isHandling={isHandling}
 					onSetDiscount={setDiscount}>
