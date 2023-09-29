@@ -96,9 +96,9 @@ export function DiscountMenuBtn({
 					// Minimal possible value
 					min={0}
 					// Amount of digits after the decimal point
-					precision={isCurrencyBtn ? 0 : 0}
+					precision={isCurrencyBtn ? 0 : 2}
 					// Number by which value will be incremented/decremented with controls and up/down arrows
-					step={isCurrencyBtn ? 1 : 1}
+					step={isCurrencyBtn ? 1 : 0.01}
 					// Initial delay in milliseconds before stepping the value
 					stepHoldDelay={500}
 					// Delay before stepping the value. Can be a number of milliseconds or a function that receives the current step count and returns the delay in milliseconds.

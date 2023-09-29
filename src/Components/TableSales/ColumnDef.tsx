@@ -14,11 +14,11 @@ export interface ProductColumns {
 	canDiscount: boolean;
 }
 
-const getTotal = (row: ProductColumns) => {
+const calculateTotal = (row: ProductColumns) => {
 	let discount = row.discount;
 
 	if (typeof discount === 'number') {
-		return row.qty * row.price * (1 - discount);
+		return Math.round(row.qty * row.price * (1 - discount));
 	}
 };
 
@@ -50,9 +50,8 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 	},
 	{
 		id: 'total',
-		accessorFn: getTotal,
+		accessorFn: calculateTotal,
 		header: 'Итог',
-		cell: val => roundDecimal(val.getValue() as number),
 		enableSorting: false,
 	},
 	{
