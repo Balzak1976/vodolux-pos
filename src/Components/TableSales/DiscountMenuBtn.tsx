@@ -1,5 +1,5 @@
 import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
-import { IconCurrencyRubel, IconPercentage, IconDecimal } from '@tabler/icons-react';
+import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
 import { ReactNode, useEffect, useState } from 'react';
 
 interface DiscountMenuBtnProps {
@@ -69,24 +69,17 @@ export function DiscountMenuBtn({
 				<Flex px={'0.75rem'} py={'0.625rem'} gap='xs'>
 					<ActionIcon
 						onClick={handleClickCurrencyBtn}
-						w='33%'
+						w='50%'
 						variant={isCurrencyBtn ? 'filled' : 'light'}
 						color='blue'>
 						<IconCurrencyRubel size='1.125rem' />
 					</ActionIcon>
 					<ActionIcon
 						onClick={handleClickPercentageBtn}
-						w='33%'
+						w='50%'
 						variant={isCurrencyBtn ? 'light' : 'filled'}
 						color='blue'>
 						<IconPercentage size='1.125rem' />
-					</ActionIcon>
-					<ActionIcon
-						// onClick={handleClickPercentageBtn}
-						w='33%'
-						variant={isCurrencyBtn ? 'light' : 'filled'}
-						color='blue'>
-						<IconDecimal size='1.125rem' />
 					</ActionIcon>
 				</Flex>
 
