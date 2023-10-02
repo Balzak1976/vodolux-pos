@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { roundDecimal } from '../../utils/discount';
 import { CellWithDiscountMenuBtn } from './CellWithDiscountMenuBtn';
 import { CellWithInput } from './CellWithInput';
 import { SortButton } from './SortButton';
@@ -15,7 +14,7 @@ export interface ProductColumns {
 }
 
 const calculateTotal = (row: ProductColumns) => {
-	let discount = row.discount;
+	let discount = row.canDiscount ? row.discount : 0;
 
 	if (typeof discount === 'number') {
 		return Math.round(row.qty * row.price * (1 - discount));
