@@ -18,9 +18,8 @@ export function CellWithDiscountMenuBtn({
 	row,
 	column,
 }: Props<ProductColumns>) {
-	const initialDiscountFraction: number = getValue();
-	const percentageDiscount: number = roundDecimal(initialDiscountFraction * 100, 2);
-	const { qty, price, canDiscount } = row.original;
+	const { qty, price, discount = 0, canDiscount } = row.original;
+	const percentageDiscount: number = roundDecimal(discount * 100, 2);
 	const subTotal: number = qty * price;
 
 	const resetDiscount = () => {
@@ -42,7 +41,7 @@ export function CellWithDiscountMenuBtn({
 			<LockBtn unLock={canDiscount} onClick={resetDiscount} />
 			<DiscountMenuBtn
 				onSetDiscount={setDiscount}
-				discountFraction={initialDiscountFraction}
+				discountFraction={discount}
 				subTotal={subTotal}
 				menuWith={100}>
 				{`${percentageDiscount}%`}
