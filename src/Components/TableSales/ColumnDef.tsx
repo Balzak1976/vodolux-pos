@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { CellWithDiscountMenuBtn } from './CellWithDiscountMenuBtn';
 import { CellWithInput } from './CellWithInput';
+import { DiscountCell } from './DiscountCell';
 import { SortButton } from './SortButton';
 
 export interface ProductColumns {
@@ -44,7 +44,7 @@ export const productColumns: ColumnDef<ProductColumns>[] = [
 	{
 		accessorKey: 'discount',
 		header: 'Скидка',
-		cell: CellWithDiscountMenuBtn,
+		cell: DiscountCell,
 		enableSorting: false,
 	},
 	{
