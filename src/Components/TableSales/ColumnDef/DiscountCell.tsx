@@ -2,7 +2,7 @@ import { Group } from '@mantine/core';
 import { Row, Table } from '@tanstack/react-table';
 import { useEffect } from 'react';
 import { roundDecimal } from '../../../utils/discount';
-import { CellDiscountMenuBtn } from './CellDiscountMenuBtn';
+import { DiscountMenuBtn } from '../DiscountMenuBtn';
 import { ProductColumns } from './ColumnDef';
 import { LockBtn } from './LockBtn';
 
@@ -17,6 +17,7 @@ export function DiscountCell({ table, row }: Props<ProductColumns>) {
 	const percentageDiscount: number = roundDecimal(localDiscount * 100, 2);
 	const { qty, price, canDiscount = true } = row.original;
 	const subTotal: number = qty * price;
+	const total: number = row.getValue('total');
 
 	const resetLocalDiscount = () => {
 		const newCanDiscount = !canDiscount;
@@ -41,13 +42,13 @@ export function DiscountCell({ table, row }: Props<ProductColumns>) {
 	return (
 		<Group spacing='xs'>
 			<LockBtn unLock={canDiscount} onClick={resetLocalDiscount} />
-			<CellDiscountMenuBtn
+			<DiscountMenuBtn
 				onSetDiscount={setLocalDiscount}
-				discountFraction={localDiscount}
 				subTotal={subTotal}
+				total={total}
 				menuWith={100}>
 				{`${percentageDiscount}%`}
-			</CellDiscountMenuBtn>
+			</DiscountMenuBtn>
 		</Group>
 	);
 }

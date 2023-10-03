@@ -1,7 +1,7 @@
 import { Flex, Text } from '@mantine/core';
-import { getDiscountFraction, roundDecimal } from '../../../utils/discount';
-import { formatCurrency } from '../../../utils/formatCurrency';
-import { GlobalDiscountMenuBtn } from './GlobalDiscountMenuBtn';
+import { getDiscountFraction, roundDecimal } from '../../utils/discount';
+import { formatCurrency } from '../../utils/formatCurrency';
+import { DiscountMenuBtn } from './DiscountMenuBtn';
 
 interface Props {
 	numOfRows: number;
@@ -16,7 +16,7 @@ export function ReceiptSummary({
 	total = 0,
 	onSetDiscount,
 }: Props) {
-	let summaryDiscountFraction = getDiscountFraction(total, subTotal);
+	const summaryDiscountFraction = getDiscountFraction(total, subTotal);
 	const percentageDiscount = roundDecimal(summaryDiscountFraction * 100, 2);
 
 	return (
@@ -40,12 +40,12 @@ export function ReceiptSummary({
 				<Text color='blue' fz='md'>
 					{'скидка: '}
 				</Text>
-				<GlobalDiscountMenuBtn
+				<DiscountMenuBtn
 					onSetDiscount={onSetDiscount}
-					discountFraction={summaryDiscountFraction}
-					subTotal={subTotal}>
+					subTotal={subTotal}
+					total={total}>
 					{`${formatCurrency(subTotal - total)} (${percentageDiscount}%)`}
-				</GlobalDiscountMenuBtn>
+				</DiscountMenuBtn>
 			</Flex>
 
 			<Flex direction='column'>

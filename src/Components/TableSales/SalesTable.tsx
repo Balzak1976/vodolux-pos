@@ -21,7 +21,7 @@ import {
 } from '@tanstack/react-table';
 
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
-import { ReceiptSummary } from './ReceiptSummary/ReceiptSummary';
+import { ReceiptSummary } from './ReceiptSummary';
 
 declare module '@tanstack/react-table' {
 	interface TableMeta<TData extends RowData> {

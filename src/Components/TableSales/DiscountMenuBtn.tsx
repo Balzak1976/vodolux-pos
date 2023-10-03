@@ -1,43 +1,41 @@
 import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
+import { getDiscountFraction, roundDecimal } from '../../utils/discount';
 
 interface Props {
 	onSetDiscount: (arg: number) => void;
-	discountFraction: number;
 	subTotal: number;
+	total: number;
 	menuBtnStyle?: string;
 	menuBtnCompact?: boolean;
 	menuWith?: string | number;
 	children: ReactNode;
 }
 
-export function GlobalDiscountMenuBtn({
+export function DiscountMenuBtn({
 	onSetDiscount,
-	discountFraction,
+	total,
 	subTotal,
 	menuBtnStyle = 'outline',
 	menuBtnCompact = true,
 	menuWith,
 	children,
 }: Props) {
-	const [isCurrencyBtn, setIsCurrencyBtn] = useState(true);
-	const discountAmount = subTotal * discountFraction;
-	const initialValue = isCurrencyBtn ? discountAmount : discountFraction * 100;
+	const discountAmount = subTotal - total;
+	const discountFraction = getDiscountFraction(total, subTotal);
+	const percentageDiscount = roundDecimal(discountFraction * 100, 2);
 
-	const [value, setValue] = useState<number | ''>(0);
+	const [isCurrencyBtn, setIsCurrencyBtn] = useState(true);
 
 	const Icon = isCurrencyBtn ? IconCurrencyRubel : IconPercentage;
 
 	const handleClickCurrencyBtn = () => {
 		setIsCurrencyBtn(true);
-
-		setValue(discountAmount);
 	};
 
 	const handleClickPercentageBtn = () => {
 		setIsCurrencyBtn(false);
-		setValue(discountFraction * 100);
 	};
 
 	const onChange = (value: number): void => {
@@ -50,12 +48,8 @@ export function GlobalDiscountMenuBtn({
 			discountFraction = 0;
 		}
 		onSetDiscount(discountFraction);
-		setValue(value);
 	};
 
-	useEffect(() => {
-		setValue(initialValue);
-	}, [discountFraction, initialValue]);
 	return (
 		<Menu shadow='md' position='top' closeOnItemClick={false}>
 			<Menu.Target>
@@ -87,7 +81,7 @@ export function GlobalDiscountMenuBtn({
 					px={'0.75rem'}
 					py={'0.625rem'}
 					icon={<Icon color='blue' size={14} />}
-					value={value}
+					value={isCurrencyBtn ? discountAmount : percentageDiscount}
 					onChange={onChange}
 					size='xs'
 					w={menuWith}
