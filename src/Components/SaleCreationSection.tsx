@@ -1,6 +1,6 @@
 import { Flex, SimpleGrid } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import productData from '../data/productData.json';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
 import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
@@ -21,10 +21,9 @@ const addColumn = (
 
 export default function SaleCreationSection() {
 	const [product, setProduct] = useState<TData[]>(
-		addColumn(productData, { discount: 0, canMarkup: true,
-    canDiscount: true })
+		addColumn(productData, { discount: 0, canMarkup: true, canDiscount: true })
 	);
-	const [discount, setDiscount] = useState(0);
+
 	const [isHandling, { toggle }] = useDisclosure(false);
 
 	const onSell = () => {
@@ -34,26 +33,17 @@ export default function SaleCreationSection() {
 		setProduct([]);
 	};
 
-	useEffect(() => {
-		setProduct(data => addColumn(data, { discount }));
-	}, [discount]);
-
 	return (
 		<SimpleGrid cols={1} spacing={0}>
 			<Flex direction='column' justify='space-between'>
 				<SalesTable
 					productData={product}
 					productColumns={productColumns}
-					isHandling={isHandling}
-					onSetDiscount={setDiscount}>
+					isHandling={isHandling}>
 					<CustomerSelectionForm />
 				</SalesTable>
 
-				<ButtonGroup
-					onResetTableSales={resetTableSales}
-					onSell={onSell}
-					onSetDiscount={setDiscount}
-				/>
+				<ButtonGroup onResetTableSales={resetTableSales} onSell={onSell} />
 			</Flex>
 			{/* <ProductSelectionSection /> */}
 		</SimpleGrid>

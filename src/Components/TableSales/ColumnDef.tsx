@@ -14,7 +14,7 @@ export interface ProductColumns {
 }
 
 const calculateTotal = (row: ProductColumns) => {
-	let discount = row.canDiscount ? row.discount : 0;
+	const { discount } = row;
 
 	if (typeof discount === 'number') {
 		return Math.round(row.qty * row.price * (1 - discount));

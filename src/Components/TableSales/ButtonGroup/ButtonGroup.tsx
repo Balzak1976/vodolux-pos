@@ -5,10 +5,9 @@ import { ReceiptSaveCancelButton } from './ReceiptSaveCancelButton';
 interface ButtonGroupProps {
 	onResetTableSales: () => void;
 	onSell: () => void;
-	onSetDiscount: (val: number) => void;
 }
 
-export function ButtonGroup({ onResetTableSales, onSell, onSetDiscount }: ButtonGroupProps) {
+export function ButtonGroup({ onResetTableSales, onSell }: ButtonGroupProps) {
 	return (
 		<Grid p='xs' gutter='xs'>
 			<Grid.Col span={4}>

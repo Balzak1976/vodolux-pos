@@ -1,46 +1,49 @@
 import { Group } from '@mantine/core';
-import { Column, Row, Table } from '@tanstack/react-table';
+import { Row, Table } from '@tanstack/react-table';
+import { useEffect } from 'react';
 import { roundDecimal } from '../../utils/discount';
 import { ProductColumns } from './ColumnDef';
 import { DiscountMenuBtn } from './DiscountMenuBtn';
 import { LockBtn } from './LockBtn';
 
 interface Props<TData extends ProductColumns> {
-	getValue: () => any;
 	table: Table<TData>;
 	row: Row<TData> & { original: TData };
-	column: Column<TData>;
 }
 
-export function DiscountCell({
-	table,
-	row,
-	column,
-}: Props<ProductColumns>) {
-	const { qty, price, discount = 0, canDiscount } = row.original;
-	const percentageDiscount: number = roundDecimal(discount * 100, 2);
+export function DiscountCell({ table, row }: Props<ProductColumns>) {
+	const globalDiscount: number = table.options.meta?.globalDiscount ?? 0;
+	const localDiscount: number = row.original.discount ?? 0;
+	const percentageDiscount: number = roundDecimal(localDiscount * 100, 2);
+	const { qty, price, canDiscount } = row.original;
 	const subTotal: number = qty * price;
 
-	const resetDiscount = () => {
+	const resetLocalDiscount = () => {
 		const newCanDiscount = !canDiscount;
 		table.options.meta?.updateData(row.index, 'canDiscount', newCanDiscount);
 		if (canDiscount) {
-			setDiscount(0);
+			setLocalDiscount(0);
+		} else {
+			setLocalDiscount(globalDiscount);
 		}
 	};
 
-	const setDiscount = (value: number): void => {
-		if (table.options.meta) {
-			table.options.meta.updateData(row.index, column.id, value);
-		}
+	const setLocalDiscount = (value: number): void => {
+		table.options.meta?.updateData(row.index, 'discount', value);
 	};
+
+	const value = canDiscount ? globalDiscount : 0;
+
+	useEffect(() => {
+		table.options.meta?.updateData(row.index, 'discount', value);
+	}, [value]);
 
 	return (
 		<Group spacing='xs'>
-			<LockBtn unLock={canDiscount} onClick={resetDiscount} />
+			<LockBtn unLock={canDiscount} onClick={resetLocalDiscount} />
 			<DiscountMenuBtn
-				onSetDiscount={setDiscount}
-				discountFraction={discount}
+				onSetDiscount={setLocalDiscount}
+				discountFraction={localDiscount}
 				subTotal={subTotal}
 				menuWith={100}>
 				{`${percentageDiscount}%`}
