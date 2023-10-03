@@ -1,10 +1,10 @@
 import { Group } from '@mantine/core';
 import { Row, Table } from '@tanstack/react-table';
 import { useEffect } from 'react';
-import { roundDecimal } from '../../utils/discount';
-import { ProductColumns } from './ColumnDef';
-import { DiscountMenuBtn } from './DiscountMenuBtn';
+import { roundDecimal } from '../../../utils/discount';
+import { DiscountMenuBtn } from '../DiscountMenuBtn';
 import { LockBtn } from './LockBtn';
+import { ProductColumns } from './ColumnDef';
 
 interface Props<TData extends ProductColumns> {
 	table: Table<TData>;

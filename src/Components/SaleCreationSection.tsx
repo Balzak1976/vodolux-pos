@@ -3,9 +3,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import productData from '../data/productData.json';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
-import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
 import { ButtonGroup } from './TableSales/ButtonGroup/ButtonGroup';
-import { productColumns, ProductColumns as TData } from './TableSales/ColumnDef';
+import { ProductColumns as TData, productColumns } from './TableSales/ColumnDef/ColumnDef';
 import { SalesTable } from './TableSales/SalesTable';
 
 const addColumn = (productData: TData[], column: { [key: string]: number | boolean }): TData[] =>

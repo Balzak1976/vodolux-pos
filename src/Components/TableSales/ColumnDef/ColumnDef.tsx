@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { SortButton } from '../SortButton';
 import { CellWithInput } from './CellWithInput';
 import { DiscountCell } from './DiscountCell';
-import { SortButton } from './SortButton';
 
 export interface ProductColumns {
 	name: string;
