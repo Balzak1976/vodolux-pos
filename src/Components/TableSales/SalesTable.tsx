@@ -130,6 +130,12 @@ export function SalesTable<TData, TValue>({
 		// debugTable: true,
 	});
 
+	const getArrSubTotalAndTotals = (): {subtotal: number, total: number}[] =>
+		table.getRowModel().rows.map(({ getValue }) => ({
+			subtotal: getValue<number>('qty') * getValue<number>('price'),
+			total: getValue('total'),
+		}));
+
 	const getTotalColumn = (columnId: string): number =>
 		table
 			.getRowModel()
@@ -223,6 +229,7 @@ export function SalesTable<TData, TValue>({
 				numOfRows={table.getRowModel().rows.length}
 				subTotal={getSubTotal()}
 				total={getTotalColumn('total')}
+				arr={getArrSubTotalAndTotals()}
 			/>
 		</>
 	);

@@ -5,8 +5,7 @@ import { getDiscountFraction, roundDecimal } from '../../utils/discount';
 
 interface Props {
 	onSetDiscount: (arg: number) => void;
-	subTotal: number;
-	total: number;
+	arr: { subtotal: number; total: number }[];
 	menuBtnStyle?: string;
 	menuBtnCompact?: boolean;
 	menuWith?: string | number;
@@ -15,13 +14,14 @@ interface Props {
 
 export function GlobalDiscountMenuBtn({
 	onSetDiscount,
-	total,
-	subTotal,
+	arr,
 	menuBtnStyle = 'outline',
 	menuBtnCompact = true,
 	menuWith,
 	children,
 }: Props) {
+	const subTotal = arr.reduce((sum, cur) => sum + cur.subtotal, 0);
+	const total = arr.reduce((sum, cur) => sum + cur.total, 0);
 	const discountAmount = subTotal - total;
 	const discountFraction = getDiscountFraction(total, subTotal);
 	const percentageDiscount = roundDecimal(discountFraction * 100, 2);

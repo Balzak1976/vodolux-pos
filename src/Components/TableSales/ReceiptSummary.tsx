@@ -7,15 +7,17 @@ interface Props {
 	numOfRows: number;
 	subTotal?: number;
 	total?: number;
+	arr: { subtotal: number; total: number }[];
 	onSetDiscount: (val: number) => void;
 }
 
 export function ReceiptSummary({
 	numOfRows,
-	subTotal = 0,
-	total = 0,
+	arr,
 	onSetDiscount,
 }: Props) {
+	const subTotal = arr.reduce((sum, cur) => sum + cur.subtotal, 0);
+	const total = arr.reduce((sum, cur) => sum + cur.total, 0);
 	const summaryDiscountFraction = getDiscountFraction(total, subTotal);
 	const percentageDiscount = roundDecimal(summaryDiscountFraction * 100, 2);
 
@@ -42,8 +44,8 @@ export function ReceiptSummary({
 				</Text>
 				<GlobalDiscountMenuBtn
 					onSetDiscount={onSetDiscount}
-					subTotal={subTotal}
-					total={total}>
+					arr={arr}
+				>
 					{`${formatCurrency(subTotal - total)} (${percentageDiscount}%)`}
 				</GlobalDiscountMenuBtn>
 			</Flex>
