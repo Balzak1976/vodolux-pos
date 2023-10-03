@@ -5,19 +5,11 @@ import productData from '../data/productData.json';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
 import { ProductSelectionSection } from './ProductSelection/ProductSelectionSection';
 import { ButtonGroup } from './TableSales/ButtonGroup/ButtonGroup';
-import {
-	productColumns,
-	ProductColumns as TData,
-} from './TableSales/ColumnDef';
+import { productColumns, ProductColumns as TData } from './TableSales/ColumnDef';
 import { SalesTable } from './TableSales/SalesTable';
 
-const addColumn = (
-	productData: TData[],
-	column: { [key: string]: number | boolean }
-): TData[] =>
-	productData.map(
-		(originalRow): TData => Object.assign({}, originalRow, column)
-	);
+const addColumn = (productData: TData[], column: { [key: string]: number | boolean }): TData[] =>
+  productData.map(originalRow => ({ ...originalRow, ...column }));
 
 export default function SaleCreationSection() {
 	const [product, setProduct] = useState<TData[]>(
@@ -29,6 +21,7 @@ export default function SaleCreationSection() {
 	const onSell = () => {
 		toggle();
 	};
+	
 	const resetTableSales = () => {
 		setProduct([]);
 	};
