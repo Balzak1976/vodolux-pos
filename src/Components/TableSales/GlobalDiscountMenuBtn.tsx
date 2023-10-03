@@ -13,7 +13,7 @@ interface Props {
 	children: ReactNode;
 }
 
-export function DiscountMenuBtn({
+export function GlobalDiscountMenuBtn({
 	onSetDiscount,
 	total,
 	subTotal,
