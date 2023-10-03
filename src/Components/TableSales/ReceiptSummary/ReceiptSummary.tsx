@@ -1,6 +1,6 @@
 import { Flex, Text } from '@mantine/core';
-import { getDiscountFraction, roundDecimal } from '../../utils/discount';
-import { formatCurrency } from '../../utils/formatCurrency';
+import { getDiscountFraction, roundDecimal } from '../../../utils/discount';
+import { formatCurrency } from '../../../utils/formatCurrency';
 import { GlobalDiscountMenuBtn } from './GlobalDiscountMenuBtn';
 
 interface Props {
