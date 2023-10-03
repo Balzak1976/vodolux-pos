@@ -2,7 +2,7 @@ import { ActionIcon, Button, Flex, Menu, NumberInput } from '@mantine/core';
 import { IconCurrencyRubel, IconPercentage } from '@tabler/icons-react';
 import { ReactNode, useEffect, useState } from 'react';
 
-interface DiscountMenuBtnProps {
+interface Props {
 	onSetDiscount: (arg: number) => void;
 	discountFraction: number;
 	subTotal: number;
@@ -12,7 +12,7 @@ interface DiscountMenuBtnProps {
 	children: ReactNode;
 }
 
-export function DiscountMenuBtn({
+export function GlobalDiscountMenuBtn({
 	onSetDiscount,
 	discountFraction,
 	subTotal,
@@ -20,7 +20,7 @@ export function DiscountMenuBtn({
 	menuBtnCompact = true,
 	menuWith,
 	children,
-}: DiscountMenuBtnProps) {
+}: Props) {
 	const [isCurrencyBtn, setIsCurrencyBtn] = useState(true);
 	const discountAmount = subTotal * discountFraction;
 	const initialValue = isCurrencyBtn ? discountAmount : discountFraction * 100;
