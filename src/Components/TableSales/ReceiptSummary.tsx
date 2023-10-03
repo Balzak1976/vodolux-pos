@@ -21,31 +21,39 @@ export function ReceiptSummary({
 
 	return (
 		<Flex p='xs' gap='xs' justify='space-between' align='end' bg='#e7f5ff'>
-			<Text color='blue'>
+			<Text color='blue' style={{ flex: 1 }}>
 				{'позиций: '}
 				<Text span fw='bold'>
 					{numOfRows}
 				</Text>
 			</Text>
-			<DiscountMenuBtn
-				onSetDiscount={onSetDiscount}
-				discountFraction={summaryDiscountFraction}
-				subTotal={subTotal}>
-				{`${formatCurrency(subTotal - total)} (${percentageDiscount}%)`}
-			</DiscountMenuBtn>
 
 			<Flex direction='column'>
-				<Text color='blue' fz='md' align='right'>
+				<Text color='blue' fz='md'>
 					{'подитог: '}
-					<Text span fw='bold'>
-						{formatCurrency(subTotal)}
-					</Text>
 				</Text>
-				<Text color='blue' fz='xl' align='right'>
+				<Text color='blue' fz='md' fw='bold'>
+					{formatCurrency(subTotal)}
+				</Text>
+			</Flex>
+			<Flex direction='column' align='center'>
+				<Text color='blue' fz='md'>
+					{'скидка: '}
+				</Text>
+				<DiscountMenuBtn
+					onSetDiscount={onSetDiscount}
+					discountFraction={summaryDiscountFraction}
+					subTotal={subTotal}>
+					{`${formatCurrency(subTotal - total)} (${percentageDiscount}%)`}
+				</DiscountMenuBtn>
+			</Flex>
+
+			<Flex direction='column'>
+				<Text color='blue' fz='md'>
 					{'итог: '}
-					<Text span fw='bold'>
-						{formatCurrency(total)}
-					</Text>
+				</Text>
+				<Text color='blue' fz='md' fw='bold'>
+					{formatCurrency(total)}
 				</Text>
 			</Flex>
 		</Flex>
