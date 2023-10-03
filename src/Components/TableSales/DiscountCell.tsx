@@ -15,7 +15,7 @@ export function DiscountCell({ table, row }: Props<ProductColumns>) {
 	const globalDiscount: number = table.options.meta?.globalDiscount ?? 0;
 	const localDiscount: number = row.original.discount ?? 0;
 	const percentageDiscount: number = roundDecimal(localDiscount * 100, 2);
-	const { qty, price, canDiscount } = row.original;
+	const { qty, price, canDiscount = true } = row.original;
 	const subTotal: number = qty * price;
 
 	const resetLocalDiscount = () => {

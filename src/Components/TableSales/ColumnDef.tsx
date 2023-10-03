@@ -9,8 +9,8 @@ export interface ProductColumns {
 	price: number;
 	stocks: number;
 	discount?: number;
-	canMarkup: boolean;
-	canDiscount: boolean;
+	canMarkup?: boolean;
+	canDiscount?: boolean;
 }
 
 const calculateTotal = (row: ProductColumns) => {
