@@ -2,9 +2,9 @@ import { Group } from '@mantine/core';
 import { Row, Table } from '@tanstack/react-table';
 import { useEffect } from 'react';
 import { roundDecimal } from '../../../utils/discount';
-import { DiscountMenuBtn } from '../DiscountMenuBtn';
-import { LockBtn } from './LockBtn';
+import { CellDiscountMenuBtn } from './CellDiscountMenuBtn';
 import { ProductColumns } from './ColumnDef';
+import { LockBtn } from './LockBtn';
 
 interface Props<TData extends ProductColumns> {
 	table: Table<TData>;
@@ -41,13 +41,13 @@ export function DiscountCell({ table, row }: Props<ProductColumns>) {
 	return (
 		<Group spacing='xs'>
 			<LockBtn unLock={canDiscount} onClick={resetLocalDiscount} />
-			<DiscountMenuBtn
+			<CellDiscountMenuBtn
 				onSetDiscount={setLocalDiscount}
 				discountFraction={localDiscount}
 				subTotal={subTotal}
 				menuWith={100}>
 				{`${percentageDiscount}%`}
-			</DiscountMenuBtn>
+			</CellDiscountMenuBtn>
 		</Group>
 	);
 }
