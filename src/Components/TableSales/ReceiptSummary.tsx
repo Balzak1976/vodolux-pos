@@ -20,7 +20,7 @@ export function ReceiptSummary({
 	const percentageDiscount = roundDecimal(summaryDiscountFraction * 100, 2);
 
 	return (
-		<Flex p='xs' gap='xs' justify='space-between' align='end' bg='#e7f5ff'>
+		<Flex p='xs' gap='xl' justify='space-between' align='end' bg='#e7f5ff'>
 			<Text color='blue' style={{ flex: 1 }}>
 				{'позиций: '}
 				<Text span fw='bold'>
@@ -28,9 +28,9 @@ export function ReceiptSummary({
 				</Text>
 			</Text>
 
-			<Flex direction='column'>
+			<Flex direction='column' align='center'>
 				<Text color='blue' fz='md'>
-					{'подитог: '}
+					{'подитог'}
 				</Text>
 				<Text color='blue' fz='md' fw='bold'>
 					{formatCurrency(subTotal)}
@@ -38,7 +38,7 @@ export function ReceiptSummary({
 			</Flex>
 			<Flex direction='column' align='center'>
 				<Text color='blue' fz='md'>
-					{'скидка: '}
+					{'скидка'}
 				</Text>
 				<DiscountMenuBtn
 					onSetDiscount={onSetDiscount}
@@ -48,9 +48,9 @@ export function ReceiptSummary({
 				</DiscountMenuBtn>
 			</Flex>
 
-			<Flex direction='column'>
+			<Flex direction='column' align='center'>
 				<Text color='blue' fz='md'>
-					{'итог: '}
+					{'итог'}
 				</Text>
 				<Text color='blue' fz='md' fw='bold'>
 					{formatCurrency(total)}
