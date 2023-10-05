@@ -13,6 +13,7 @@ import {
 	ColumnDef,
 	RowData,
 	SortingState,
+	Table as TanstackTable,
 	VisibilityState,
 	flexRender,
 	getCoreRowModel,
@@ -20,6 +21,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 
+import { ProductColumns } from './ColumnDef/ColumnDef';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
 import { ReceiptSummary } from './ReceiptSummary';
 
@@ -77,19 +79,34 @@ const useStyles = createStyles(theme => ({
 	},
 }));
 
-interface TableSalesProps<TData, TValue> {
+export interface IGetArrSubTotalAndTotals {
+	canDiscount: boolean;
+	subTotal: number;
+	total: number;
+}
+
+const getArrSubTotalAndTotals = (
+	table: TanstackTable<ProductColumns>
+): IGetArrSubTotalAndTotals[] =>
+	table.getRowModel().rows.map(({ getValue, original }) => ({
+		canDiscount: original.canDiscount ?? true,
+		subTotal: getValue<number>('qty') * getValue<number>('price'),
+		total: getValue('total'),
+	}));
+
+interface TableSalesProps<TData extends ProductColumns, TValue> {
 	productData: TData[];
 	productColumns: ColumnDef<TData, TValue>[];
 	isHandling: boolean;
 	children: ReactNode;
 }
 
-export function SalesTable<TData, TValue>({
+export function SalesTable<TValue>({
 	productData,
 	productColumns,
 	isHandling,
 	children,
-}: TableSalesProps<TData, TValue>) {
+}: TableSalesProps<ProductColumns, TValue>) {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
 
@@ -129,31 +146,6 @@ export function SalesTable<TData, TValue>({
 		},
 		// debugTable: true,
 	});
-
-	const getArrSubTotalAndTotals = (): {subtotal: number, total: number}[] =>
-		table.getRowModel().rows.map(({ getValue }) => ({
-			subtotal: getValue<number>('qty') * getValue<number>('price'),
-			total: getValue('total'),
-		}));
-
-	const getTotalColumn = (columnId: string): number =>
-		table
-			.getRowModel()
-			.rows.reduce(
-				(total, cellValue) => total + cellValue.getValue<number>(columnId),
-				0
-			);
-
-	const getSubTotal = (): number =>
-		table
-			.getRowModel()
-			.rows.reduce(
-				(total, cellValue) =>
-					total +
-					cellValue.getValue<number>('qty') *
-						cellValue.getValue<number>('price'),
-				0
-			);
 
 	return (
 		<>
@@ -227,9 +219,7 @@ export function SalesTable<TData, TValue>({
 			<ReceiptSummary
 				onSetDiscount={setGlobalDiscount}
 				numOfRows={table.getRowModel().rows.length}
-				subTotal={getSubTotal()}
-				total={getTotalColumn('total')}
-				arr={getArrSubTotalAndTotals()}
+				array={getArrSubTotalAndTotals(table)}
 			/>
 		</>
 	);
