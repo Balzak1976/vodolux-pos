@@ -4,7 +4,7 @@ import { useState } from 'react';
 import productData from '../data/productData.json';
 import { CustomerSelectionForm } from './CustomerSelectionForm';
 import { ButtonGroup } from './TableSales/ButtonGroup/ButtonGroup';
-import { ProductColumns as TData, productColumns } from './TableSales/ColumnDef/ColumnDef';
+import { IProductColumns as TData, productColumns } from './TableSales/ColumnDef/ColumnDef';
 import { SalesTable } from './TableSales/SalesTable';
 
 const addColumn = (productData: TData[], column: { [key: string]: number | boolean }): TData[] =>

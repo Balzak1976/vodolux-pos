@@ -21,7 +21,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 
-import { ProductColumns } from './ColumnDef/ColumnDef';
+import { IProductColumns } from './ColumnDef/ColumnDef';
 import { ColumnVisibilityButton } from './ColumnVisibilityButton';
 import { ReceiptSummary } from './ReceiptSummary';
 
@@ -86,7 +86,7 @@ export interface IGetArrSubTotalAndTotals {
 }
 
 const getArrSubTotalAndTotals = (
-	table: TanstackTable<ProductColumns>
+	table: TanstackTable<IProductColumns>
 ): IGetArrSubTotalAndTotals[] =>
 	table.getRowModel().rows.map(({ getValue, original }) => ({
 		canDiscount: original.canDiscount ?? true,
@@ -94,7 +94,7 @@ const getArrSubTotalAndTotals = (
 		total: getValue('total'),
 	}));
 
-interface TableSalesProps<TData extends ProductColumns, TValue> {
+interface TableSalesProps<TData extends IProductColumns, TValue> {
 	productData: TData[];
 	productColumns: ColumnDef<TData, TValue>[];
 	isHandling: boolean;
@@ -106,7 +106,7 @@ export function SalesTable<TValue>({
 	productColumns,
 	isHandling,
 	children,
-}: TableSalesProps<ProductColumns, TValue>) {
+}: TableSalesProps<IProductColumns, TValue>) {
 	const { classes, cx } = useStyles();
 	const [scrolled, setScrolled] = useState(false);
 

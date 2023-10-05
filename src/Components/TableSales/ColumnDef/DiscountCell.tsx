@@ -3,15 +3,15 @@ import { Row, Table } from '@tanstack/react-table';
 import { useEffect } from 'react';
 import { roundDecimal } from '../../../utils/discount';
 import { CellDiscountMenuBtn } from './CellDiscountMenuBtn';
-import { ProductColumns } from './ColumnDef';
+import { IProductColumns } from './ColumnDef';
 import { LockBtn } from './LockBtn';
 
-interface Props<TData extends ProductColumns> {
+interface Props<TData extends IProductColumns> {
 	table: Table<TData>;
 	row: Row<TData> & { original: TData };
 }
 
-export function DiscountCell({ table, row }: Props<ProductColumns>) {
+export function DiscountCell({ table, row }: Props<IProductColumns>) {
 	const globalDiscount: number = table.options.meta?.globalDiscount ?? 0;
 	const localDiscount: number = row.original.discount ?? 0;
 	const percentageDiscount: number = roundDecimal(localDiscount * 100, 2);

@@ -3,7 +3,7 @@ import { SortButton } from '../SortButton';
 import { CellWithInput } from './CellWithInput';
 import { DiscountCell } from './DiscountCell';
 
-export interface ProductColumns {
+export interface IProductColumns {
 	name: string;
 	qty: number;
 	price: number;
@@ -13,7 +13,7 @@ export interface ProductColumns {
 	canDiscount?: boolean;
 }
 
-const calculateTotal = (row: ProductColumns) => {
+const calculateTotal = (row: IProductColumns) => {
 	const { discount } = row;
 
 	if (typeof discount === 'number') {
@@ -21,7 +21,7 @@ const calculateTotal = (row: ProductColumns) => {
 	}
 };
 
-export const productColumns: ColumnDef<ProductColumns>[] = [
+export const productColumns: ColumnDef<IProductColumns>[] = [
 	{
 		accessorKey: 'name',
 		header: ({ column }) => (
