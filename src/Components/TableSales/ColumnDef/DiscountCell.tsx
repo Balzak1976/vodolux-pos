@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { roundDecimal } from '../../../utils/discount';
 import { CellDiscountMenuBtn } from './CellDiscountMenuBtn';
 import { IProductColumns } from './ColumnDef';
+import { Indicator } from '@mantine/core';
+import { IconLock } from '@tabler/icons-react';
 
 interface Props<TData extends IProductColumns> {
 	table: Table<TData>;
@@ -38,6 +40,7 @@ export function DiscountCell({ table, row }: Props<IProductColumns>) {
 	}, [value]);
 
 	return (
+		<Indicator label={<IconLock size={12} />} disabled={canDiscount} size={14}>
 			<CellDiscountMenuBtn
 				onSetDiscount={setLocalDiscount}
 				subTotal={subTotal}
@@ -47,5 +50,6 @@ export function DiscountCell({ table, row }: Props<IProductColumns>) {
 				menuWith={100}>
 				{`${percentageDiscount}%`}
 			</CellDiscountMenuBtn>
+		</Indicator>
 	);
 }
