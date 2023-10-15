@@ -1,4 +1,4 @@
-import { rem } from '@mantine/core';
+import { NumberInput, rem } from '@mantine/core';
 import { Column, Row, RowData, Table } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 
@@ -23,21 +23,23 @@ export function CellWithInput<TData>({
 }: CellWithInputProps<TData>) {
 	const initialValue = getValue();
 	const [value, setValue] = useState(initialValue);
-  
+
 	useEffect(() => {
-    setValue(initialValue);
+		setValue(initialValue);
 	}, [initialValue]);
-  
-  const onBlur = () => {
+
+	const onBlur = () => {
 		table.options.meta?.updateData(row.index, column.id, value);
 	};
 
 	return (
-		<input
+		<NumberInput
+			size='xs'
+			w={50}
+			hideControls
 			value={value}
-			onChange={e => setValue(e.target.value)}
+			onChange={setValue}
 			onBlur={onBlur}
-			style={{ width: rem(34) }}
 		/>
 	);
 }
